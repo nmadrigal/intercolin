@@ -1,0 +1,6 @@
+Order deny,allow
+RewriteEngine  on
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http://(www\.)?intercolin.com/.*$ [NC]
+RewriteRule \.(gif|jpg|png|mp3|mpg|avi|mov)$ - [F]  
+DirectoryIndex index.php?mod=home&op=index

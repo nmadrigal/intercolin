@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.1">
+	<Document>
+		<name>Intercolin Pachuca</name>
+		<description><![CDATA[Oficina Intercolin en Pachuca]]></description>
+		<Style id='icon-logo-intercolin'>
+			<IconStyle>
+				<color>ff3644DB</color>				
+				<Icon>
+					<href>http://intercolin.com/Content/Images/icn-logo-intercolin.png</href>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Folder>
+			<name>Oficina en Pachuca</name>
+			<description><![CDATA[Oficina Intercolin en Pachuca. Tel: (01 771) 294 2479 ID 72*13*81834]]></description>
+			<Placemark>
+				<styleUrl>#icon-503-DB4436</styleUrl>
+				<name><![CDATA[Oficina Intercolin en Pachuca. Tel: (01 771) 294 2479 ID 72*13*81834]]></name>							
+				<LookAt>
+				  <longitude>-98.73457170246468</longitude>
+				  <latitude>20.119048777659344</latitude>				 
+				</LookAt>
+				<Icon>
+				  <href>http://intercolin.com/Content/Images/icn-logo-intercolin.png</href>
+				</Icon>				
+				<Point>
+					<coordinates>-98.73457170246468,20.119048777659344,0.0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+				
+	</Document>
+	<NetworkLinkControl>
+	   <minRefreshPeriod>0</minRefreshPeriod>
+	    <expires>5</expires> 
+	   <message>This is a pop-up message. You will only see this once</message>
+	   <cookie>cookie=sometext</cookie>
+	   <linkName>New KML features</linkName>
+	   <linkDescription><![CDATA[KML now has new features available!]]></linkDescription>
+	</NetworkLinkControl>
+</kml>

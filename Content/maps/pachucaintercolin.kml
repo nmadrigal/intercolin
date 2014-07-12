@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>INTERCOLIN Pachuca</name>
+  <description><![CDATA[20.118970, -98.734180]]></description>
+  <NetworkLink>
+    <Link>
+      <href>http://www.intercolin.com/Content/maps/pachucaintercolin.kml</href>
+      <refreshMode>onChange</refreshMode>
+    </Link>
+  </NetworkLink>
+  <Style id="normalPlacemark">
+    <IconStyle>
+      <Icon>
+		  <href>http://www.intercolin.com/Content/Images/icn-logo-intercolin.png</href>
+	  </Icon>
+    </IconStyle>
+  </Style>
+  <Placemark>
+    <name>20.118970, -98.734180</name>
+    <description><![CDATA[20°07'08.3"N 98°44'03.0"W<br><img src="https://cbks0.google.com/cbk?output=thumbnail&amp;w=90&amp;h=68&amp;ll=20.118970,-98.734180&amp;thumb=0">]]></description>
+    <styleUrl>#normalPlacemark</styleUrl>
+    <Point>
+      <coordinates>-98.734177,20.118971,0.000000</coordinates>
+    </Point>
+  </Placemark>
+</Document>
+</kml>
