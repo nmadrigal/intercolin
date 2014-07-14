@@ -34,9 +34,9 @@
                         <ul id="menu" class="nav navbar-nav">
                             <li><a href="index.php?mod=admin&amp;op=index">Home</a></li>
                             <li><a href="index.php?mod=admin&amp;op=adminanuncios">Venta</a></li>							
-                            <li><a href="#">Renta</a></li>            
+                            <!--<li><a href="#">Renta</a></li>            
 							<li><a href="index.php?mod=admin&amp;op=servicios">Servicios</a></li>
-							<li><a href="#">Conocenos</a></li>
+							<li><a href="#">Conocenos</a></li>-->
                         </ul>
 					</div>
 				</div>

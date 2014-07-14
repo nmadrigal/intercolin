@@ -90,8 +90,8 @@
 					
 		<section id="agregarAnuncio" class="detalle-anuncio">
 			<h2>Agregar Anuncio</h2>
-			<form action="index.php?mod=admin&amp;op=agregaranuncio&amp;ban=1" method="POST" id="agregarAnuncioForm">
-								
+			<!--<form action="index.php?mod=admin&amp;op=agregaranuncio&amp;ban=1" method="POST" id="agregarAnuncioForm">-->
+			<form action="" method="POST" id="agregarAnuncioForm">					
 				<article class="detalle-top">
 					<div class="row">
 						<div class="col-sm-3 col-md-3 col-lg-3">
@@ -144,7 +144,7 @@
 				</aside>
 				<article class="detalle-bottom">
 					<label>Detalle del Anuncio</label>
-					<textarea id="descripcion" name="descripcion"></textarea>
+					<textarea id="descripcion" name="descripcion" required="true"></textarea>
 				</article>
 				<div class="row">
 					<div class="col-sm-6 col-md-6 col-lg-6">
@@ -153,7 +153,7 @@
 				</div>
 			</form>
 		</section>
-		<section id="upload-images" class="detalle-anuncio">
+		<section id="upload-images" class="detalle-anuncio dropzone-section">
 			<fieldset class="carousel">				
 				<div class="row">
 					<div class="col-sm-12 col-md-12 col-lg-12">							
@@ -278,26 +278,28 @@
 	function showDetalleAnuncio($detalleAnuncio, $tipoInmuebles){ ?>
 		<section id="adminEditAnuncio" class="detalle-anuncio">
 			<h2>Modificar Anuncio</h2>
-			<form action="index.php?mod=admin&amp;op=editaranuncio&amp;id=<?php echo $detalleAnuncio["id"]; ?>&amp;ban=1" method="POST">								
+		<!--<form action="index.php?mod=admin&amp;op=editaranuncio&amp;id=<?php echo $detalleAnuncio["id"]; ?>&amp;ban=1" method="POST">-->
+			<form action="" method="POST" id="editarAnuncioForm">
+				<input type="hidden" name="idAnuncio" id="idAnuncio" value="<?php echo $detalleAnuncio["id"]; ?>">
 				<article class="detalle-top">
 					<div class="row"> 
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<label>Zona</label>
-							<input type="text" name="zona" required value="<?php echo $detalleAnuncio["zona"]; ?>"/>									
+							<input type="text" id="zona" name="zona" required value="<?php echo $detalleAnuncio["zona"]; ?>"/>									
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<label>Colonia</label>
-							<input type="text" name="colonia" required value="<?php echo $detalleAnuncio["colonia"]; ?>"/>				
+							<input type="text" id="colonia" name="colonia" required value="<?php echo $detalleAnuncio["colonia"]; ?>"/>				
 						</div>
 						<div class="precio col-sm-3 col-md-3 col-lg-3">
 							<label>Precio</label>
-							<input type="text" name="precio" value="<?php echo $detalleAnuncio["precio"]; ?>"/>					
+							<input type="text" id="precio" name="precio" value="<?php echo $detalleAnuncio["precio"]; ?>"/>					
 							<span>Pesos</span>
 						</div>				
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<label>Tipo de inmueble</label>
-							<input list="tipoInmueble" value="<?php echo ucfirst($detalleAnuncio["tipo_inmueble"]); ?>">
-							<datalist id="tipoInmueble" required>
+							<input list="tipoInmueble" name="tipoInmueble" required="true" value="<?php echo ucfirst($detalleAnuncio["tipo_inmueble"]); ?>">
+							<datalist id="tipoInmueble">
 							<select name="tipoInmueble">
 								<?php
 									for($i=0; $i < count($tipoInmuebles); $i++)
@@ -322,32 +324,54 @@
 					<div class="row">
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<label>Plantas</label>
-							<input type="number" name="numPlantas" min="1" value="<?php echo $detalleAnuncio["num_plantas"]; ?>"/>
+							<input type="number" id="numPlantas" name="numPlantas" min="1" value="<?php echo $detalleAnuncio["num_plantas"]; ?>"/>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<label>Habitaciones</label>
-							<input type="number" name="numCuartos" min="0" value="<?php echo $detalleAnuncio["num_cuartos"]; ?>"/>
+							<input type="number" id="numCuartos" name="numCuartos" min="0" value="<?php echo $detalleAnuncio["num_cuartos"]; ?>"/>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<label>M.construccion</label>
-							<input type="text" name="construccion" value="<?php echo $detalleAnuncio["metros_construccion"]; ?>"/>
+							<input type="text" id="construccion" name="construccion" value="<?php echo $detalleAnuncio["metros_construccion"]; ?>"/>
 						</div>
 						<div class="col-sm-3 col-md-3 col-lg-3">
 							<label>M.terreno</label>
-							<input type="text" name="terreno" min="10" value="<?php echo $detalleAnuncio["metros_terreno"]; ?>"/>
+							<input type="text" id="terreno" name="terreno" min="10" value="<?php echo $detalleAnuncio["metros_terreno"]; ?>"/>
 						</div>
 					</div>	
 				</aside>
 				<article class="detalle-bottom">
 					<label>Detalle del Anuncio</label>
-					<textarea name="descripcion" required="true"><?php echo $detalleAnuncio["descripcion"]; ?></textarea>
+					<textarea id="descripcion" name="descripcion" required="true"><?php echo $detalleAnuncio["descripcion"]; ?></textarea>
 				</article>
 				<div class="row">
 					<div class="col-sm-6 col-md-6 col-lg-6">
-						<button type="submit" value="submit" class="button submit">Guardar Cambios</button>
+						<!--<button type="submit" value="submit" class="button submit">Guardar Cambios</button>-->
+						<a id="editarAnuncioSubmit" class="button submit">Guardar Cambios</a>
+					</div>
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<a id="manageImages" class="button submit">Administrar Imagenes</a>
 					</div>
 				</div>
 			</form>	
+		</section>
+		<section id="uploadEditImages" class="detalle-anuncio dropzone-section">
+			
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">							
+													
+							<form action="upload.php?action=uploadImages" id="editDropzone" class="dropzone">								  
+								<h3>Click o arrastra las imagenes</h3>
+							</form>							
+						
+					</div>														
+				</div>
+				<div class="row">
+					<div class="col-sm-6 col-md-6 col-lg-6">
+						<a id="saveImages" class="button submit">Guardar Imagenes</a>
+					</div>
+				</div>
+						
 		</section>
 	<?php }
 	 

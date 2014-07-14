@@ -30,9 +30,9 @@
 		break;
  
 	case "moveImages";
-		$id = $_POST["lastID"];
+		$id = $_POST["idAnuncio"];
 		$suff = "img-".$id."-";
-		//$directory = "uploads";
+		$renamed = 0;
 		if(isset($storeFolder) && file_exists($directory)){
 			$dirint = dir($directory);
 			
@@ -54,26 +54,56 @@
 				$renamed = rename($directory."/".$archivo, $directory."/".$id."/img".$id."-".$archivo);
 							
 		 }
-		
+				
 		echo $renamed;
 		
+		
+		break;
+		
+	case "changeImages";
+		$id = $_POST["idAnuncio"];		
+		$result  = array();
+		$storeFolder = $directory."/".$id;		
+		 if(file_exists($directory."/".$id))
+		{		 
+		  $files = scandir($storeFolder);                 
+		  if ( false!==$files ) {
+			  foreach ( $files as $file ) {
+				  if ( '.'!=$file && '..'!=$file) {       
+					  $obj['name'] = $file;
+					  $obj['size'] = filesize($storeFolder.$ds.$file);
+					  $result[] = $obj;
+				  }
+			  }
+		  }
+		}
+		else
+		 echo "El folder NO existe";		
+		  header('Content-type: text/json');              
+		  header('Content-type: application/json');
+		  echo json_encode($result);				 
 		break;
 		
 	case "removeImage";
 		 if(isset($_POST["remove"]))
-		 {
+		 {	
 			$fileUnlink = $_POST["remove"];
-			$fileUnlink = $directory."/".$fileUnlink;
-			if (file_exists($fileUnlink)) {
-				$unlink = unlink($fileUnlink); 
+			if(isset($_POST["idAnuncio"])){
+				$id = $_POST["idAnuncio"];
+				$fileUnlink = $directory.$ds.$id.$ds.$fileUnlink;			 
 			}
-		 }
-		echo $fileUnlink;
-		
+			else{				
+				$fileUnlink = $directory."/".$fileUnlink;				
+			}
+			if (file_exists($fileUnlink)) {
+					$unlink = unlink($fileUnlink); 
+				}
+		 }		 
+		 
+		echo $fileUnlink;		
 		break;
  
  }
  
-//- See more at: http://www.startutorial.com/articles/view/how-to-build-a-file-upload-form-using-dropzonejs-and-php#sthash.G7RyyOER.dpuf
 
 ?> 

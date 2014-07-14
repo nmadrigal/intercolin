@@ -333,76 +333,47 @@ var Admin = Admin || {};
 			};					
 			
         }
-
+			
         function initEvents() {
-			var addRequired;
+			var required;			
 			//agregaranuncio
-			$("#agregarAnuncioSubmit").bind("click", function (){
-				addRequired = false;
-			   $("#agregarAnuncioForm").find("*[required]").each(function () {										
-					if ($(this).val() == "")
-					{ addRequired = true; $(this).addClass("required"); }
-					else
-					{ $(this).removeClass("required"); }								
-				});
-				if(!addRequired){											
-					$("#agregarAnuncioSubmit").bind("click", function (e){
-						e.preventDefault();
-						var zona = $("#zona").val();
-						var colonia = $("#colonia").val();
-						var precio = $("#precio").val();
-						var tipoInmueble = $("input[name='tipoInmueble']").val();
-						var numPlantas = $("#numPlantas").val();
-						var numCuartos = $("#numCuartos").val();
-						var construccion = $("#construccion").val();
-						var terreno = $("#terreno").val();
-						var descripcion = $("#descripcion").val();
-						
-						jQuery.ajax({
-							type: 'POST',
-							//url: 'index.php?mod=admin&op=agregaranuncio&ban=1',
-							url: 'clases/control/functions.php',
-							data: { 'op': "agregarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion },
-							cache: true,
-							success: function (response){										
-									$("#agregarAnuncio").fadeOut('slow');
-									$("#upload-images .dropzone").append("<input type='hidden' name='id' id='lastID' value='" + response + "'>");
-									$("#upload-images").fadeIn('slow');								
-							}
-							
-						});
-					});	
-						
-				}
-				else
-				{
-					$("#agregarAnuncioForm .requeridos").remove();
-					var warning = "<div class='requeridos'><p>Por favor, llene los campos obligatorios</p></div>";
-					$("#agregarAnuncioForm").prepend(warning);
-					$("#agregarAnuncio .requeridos").fadeIn().delay(3000).fadeOut();
-							
-				}
-			});
-			//agregar imagenes
-			$("#upload-images #agregarImagenes").bind("click", function(e){
-				e.preventDefault();
-				var id = $("#upload-images #lastID").val();
-				jQuery.ajax({
-							type: 'POST',
-							//url: 'index.php?mod=admin&op=agregaranuncio&ban=1',
-							url: 'upload.php',
-							data: { 'action': "moveImages", 'lastID': id },
-							cache: true,
-							success: function (response){										
-									window.location.href = "index.php?mod=admin&op=adminanuncios";
-									alert("Las imágenes se guardaron correctamente");																
-							}
-							
-						});
+			$("#agregarAnuncioSubmit").bind("click", function (){				
+				var element = $('#agregarAnuncioForm');				
+				required = validateForm(element);				
+				submitData(required,element,action="add")
 				
 			});
 			
-		
+			//agregar imagenes
+			$("#upload-images #agregarImagenes").bind("click", function(e){
+				e.preventDefault();
+				var id = $("#upload-images #lastID").val();				
+				saveImages(id,"add");
+			});
+				
+			$("#editarAnuncioSubmit").bind("click", function (){				
+				var element = $('#editarAnuncioForm');				
+				required = validateForm(element);				
+				submitData(required,element,action="edit")				
+			});
+			
+			$("#manageImages").bind("click", function (e){
+				var el = $('#editarAnuncioForm');
+				var idAnuncio = el.find("#idAnuncio").val();
+				$(this).hide();				
+				 	
+				getImagesStored(el,idAnuncio);									
+				$("#uploadEditImages").show();
+				e.preventDefault();
+			});
+			
+			$("#saveImages").bind("click", function(e){
+				var el = $('#editarAnuncioForm');
+				var idAnuncio = el.find("#idAnuncio").val();
+				saveImages(idAnuncio,"edit");
+				e.preventDefault();
+			});
+			
 			//eliminar anuncio
 			$('.admin-results .container-fluid .row p span').bind("click", function () {
 				var id = $(this).parent().parent().attr("id");				
@@ -418,8 +389,7 @@ var Admin = Admin || {};
 							{
 								   $(".admin-results .container-fluid #" + id).fadeOut('slow', function () {
 									 $(this).remove();
-									   });
-									   
+									   });									  
 							}	
 						 }
 					 });
@@ -429,6 +399,136 @@ var Admin = Admin || {};
 			});					
 
         }
+		
+		function submitData (required,el,action) { //el = is the view or form
+			if(!required){															
+					var zona = el.find("#zona").val();
+					var colonia = el.find("#colonia").val();
+					var precio = el.find("#precio").val();
+					var tipoInmueble = el.find("input[name='tipoInmueble']").val();
+					var numPlantas = el.find("#numPlantas").val();
+					var numCuartos = el.find("#numCuartos").val();
+					var construccion = el.find("#construccion").val();
+					var terreno = el.find("#terreno").val();
+					var descripcion = el.find("#descripcion").val();
+					if(action == "add"){
+						jQuery.ajax({
+							type: 'POST',							
+							url: 'clases/control/functions.php',
+							data: { 'op': "agregarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion },
+							cache: true,
+							success: function (response){										
+									$("#agregarAnuncio").fadeOut('slow');
+									$("#upload-images .dropzone").append("<input type='hidden' name='id' id='lastID' value='" + response + "'>");
+									$("#upload-images").fadeIn('slow');								
+							}
+							
+						});
+					}
+					if(action == "edit"){
+						var idAnuncio = el.find("#idAnuncio").val();						
+						 jQuery.ajax({
+							 type: 'POST',							 
+							 url: 'clases/control/functions.php',
+							 data: { 'op': "editarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion, 'idAnuncio': idAnuncio },
+							 cache: true,
+							 success: function (response){																			 
+									 if(response == 1)
+										alert("Los datos se guardaron correctamente");
+									 $("#uploadEditImages .dropzone").append("<input type='hidden' name='id' id='lastID' value='" + response + "'>");									 
+							 }							
+						 });
+					}					
+			}
+			else
+			{
+				el.find(".requeridos").remove();
+				var warning = "<div class='requeridos'><p>Por favor, llene los campos obligatorios</p></div>";
+				el.prepend(warning);
+				el.find(".requeridos").fadeIn().delay(3000).fadeOut();
+						
+			}
+		}
+		
+		function validateForm(el){
+		  var required = false;
+			el.find("*[required]").each(function () {	
+					var _this = $(this); 
+					if(_this.attr("id") == "tipoInmueble")
+						_this = el.find("[list*='tipoInmueble']");
+						
+					if (_this.val() == "")
+					{ required = true; $(this).addClass("required"); }
+					else
+					{ $(this).removeClass("required"); }
+					
+				});
+			
+				
+			return required;
+		}
+		
+		function saveImages(idAnuncio,action){
+			jQuery.ajax({
+				type: 'POST',
+				//url: 'index.php?mod=admin&op=agregaranuncio&ban=1',
+				url: 'upload.php',
+				data: { 'action': "moveImages", 'idAnuncio': idAnuncio },
+				cache: true,
+				success: function (response){										
+						if(action == "add")
+							window.location.href = "index.php?mod=admin&op=adminanuncios";
+						if(action == "edit"){
+							$("#uploadEditImages").hide();
+							$("#manageImages").show();							
+						}
+						if(response != 0)
+							alert("Las imágenes se guardaron correctamente");																
+				}						
+			});		
+		}
+		
+		function getImagesStored(el,idAnuncio) {
+			jQuery.ajax({
+					type: 'POST',					
+					url: 'upload.php',
+					data: { 'action': "changeImages", 'idAnuncio': idAnuncio },
+					cache: true,
+					success: function (response){	
+							if($("#uploadEditImages #editDropzone ul").length != 0 || $("#uploadEditImages #editDropzone div.dz-success").length != 0){
+								 $("#uploadEditImages #editDropzone div.dz-success").remove();
+								 $("#uploadEditImages #editDropzone ul").remove();								
+							}
+							var imagesStored = "<ul>";
+							$.each(response, function(key,value){										 
+								var mockFile = { name: value.name, size: value.size };
+								imagesStored += "<li class='dz-preview dz-image-preview'><img src='" + '/uploads/' + idAnuncio + '/' + value.name + "' alt='" + value.name + "' width='100' /><a id='" + value.name + "' class='dz-remove' data-dz-remove=''>Quitar Imagen</a></li>";
+							});
+							imagesStored += "</ul>";
+							$("#editDropzone").append(imagesStored);
+							$("li.dz-preview .dz-remove").bind("click", function(e){
+								var fileName = $(this).attr("id");								
+								jQuery.ajax({
+									type: "POST",
+									url: 'upload.php',					
+									data: { "action": "removeImage", "remove": fileName, "idAnuncio": idAnuncio},
+									success: function (data) {
+												getImagesStored(el,idAnuncio);
+											}
+								});
+							
+								e.preventDefault();
+							});
+							
+							
+							// window.location.href = "index.php?mod=admin&op=adminanuncios";
+							// alert("Las imágenes se guardaron correctamente");																
+							
+					
+					}								
+				});
+		}
+		
 		// function readURL(input) {
 			// if (input.files && input.files[0]) {
             // var reader = new FileReader();

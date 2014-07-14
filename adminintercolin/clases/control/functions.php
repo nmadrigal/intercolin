@@ -35,6 +35,29 @@
 			echo $id;			
 			  
 		break;	  
+		
+		case "editarAnuncio";
+			$idAnuncio = $_POST["idAnuncio"];
+			$zona = $_POST["zona"];
+			$colonia = $_POST["colonia"];
+			if(isset($_POST["precio"]))
+				$precio = $_POST["precio"];
+			if(isset($_POST["tipoInmueble"]))	
+				$tipoInmueble = $_POST["tipoInmueble"];
+			if(isset($_POST["numPlantas"]))
+				$numPlantas = $_POST["numPlantas"];
+			if(isset($_POST["numCuartos"]))
+				$numCuartos = $_POST["numCuartos"];
+			if(isset($_POST["construccion"]))
+				$metrosConst = $_POST["construccion"];
+			if(isset($_POST["terreno"]))
+				$metrosTerreno = $_POST["terreno"];
+			if(isset($_POST["descripcion"]))	
+				$descripcion = $_POST["descripcion"];
+			$result = $obj->editarAnuncio($descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosConst, $metrosTerreno, $numCuartos, $numPlantas, $idAnuncio );														
+			echo $result;			
+			  
+		break;	  	
 	}
 	
 ?>

@@ -20,7 +20,7 @@ button:hover,
 .button-primary:hover { background: -webkit-linear-gradient(bottom, #FEFEFE, #CAFDCB); background: -moz-linear-gradient(bottom, #FEFEFE, #CAFDCB); background: -ms-linear-gradient(bottom, #FEFEFE, #CAFDCB); }
 /* input:invalid { border: 1px solid #FFBDBD; } */
 /* input[type="text"]:valid { background: #DCFFD3; } */
-textarea { max-width: 100%; width: 100%; min-height: 60px; max-height: 100px; padding: 0px 5px; }
+textarea { max-width: 100%; width: 100%; min-height: 75px; max-height: 100px; padding: 0px 5px; }
 label { color: #509F79; font-size: 16px; font-weight: 500; }
 header,
 footer { background: -webkit-linear-gradient(top, #D0E7DC, #509F79 ); background: -moz-linear-gradient(top, #D0E7DC, #509F79); background: -ms-linear-gradient(top, #D0E7DC, #509F79); }
@@ -30,7 +30,7 @@ header span { font-style: italic; }
 body .readonly { background: #EDEDED; color: #CCCCCC; border: 1px solid #CCCCCC; }
 body .required  { border: 1px solid #F59C9C; -web-kit-box-shadow: 1px 1px 4px rgba(255, 0, 0, .7); box-shadow: 1px 1px 4px rgba(255, 0, 0, .7); }
 body .requeridos { margin: 5px 0px 15px; border: 1px solid #F59C9C; -web-kit-box-shadow: 0px 0px 2px rgba(255, 0, 0, .7); box-shadow: 0px 0px 2px rgba(255, 0, 0, .7); }
-body .requeridos p { color: #C45C5C; padding: 5px; font-size: 18px; }
+body .requeridos p { margin: 0px; color: #C45C5C; padding: 5px; text-align: center; font-size: 18px; }
 div .no-edit { border: 0px none; }
 .navbar { margin: 0px; }
 .navbar-nav > li > a { padding: 10px; }
@@ -150,7 +150,7 @@ footer { position: fixed; width: 100%; bottom: 0px; border-top: 1px solid #9BE7C
 
 .admin-results .container-fluid .row p span { position: absolute; right: 0px; width: 50px; height: 42px; background: url("/adminintercolin/Content/Images/spritemap.png"); background-position: -267px -120px; opacity: .7; }
 .admin-results .container-fluid .row p span:hover { opacity: 1; cursor: pointer; }
-.admin-results .container-fluid .row .thumbnail-text div span { color: #999999; vertical-align: -webkit-baseline-middle; }
+.admin-results .container-fluid .row .thumbnail-text div span { color: #999999; vertical-align: -webkit-baseline-middle; line-height: 9px; }
 .admin-results .container-fluid .row .thumbnail-text div span + span { font-size: 12px; }
 .detalle-anuncio form { padding: 5px 5px 15px; background: #FFFFFF; }
 .detalle-anuncio form .row { margin: 0px; }
@@ -158,13 +158,13 @@ footer { position: fixed; width: 100%; bottom: 0px; border-top: 1px solid #9BE7C
 .precio span { color: #999999; font-size: 12px; }
 
   /* Dropzone */
-  #upload-images { display: none; }
   #dropzone { -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.13); box-shadow: 0 0 10px rgba(0,0,0,0.13); }
+  .dropzone-section { display: none; }
   .dropzone { min-height: 230px; }
-  .dropzone .dz-default.dz-message { top: 5%; position: absolute; left: 20%; width: 80%; margin: 10% auto 0px; background: none; opacity: .7; }
+  .dropzone .dz-default.dz-message { top: 5%; position: absolute; left: 0%; width: 100%; height: 90%; margin: 0px auto; background: none; opacity: .7; }
   .dropzone .dz-preview .dz-error-mark, 
   .dropzone-previews .dz-preview .dz-error-mark,
   .dropzone .dz-preview.dz-success .dz-success-mark, 
   .dropzone-previews .dz-preview.dz-success .dz-success-mark  { top: -15px; right: -20px; }
   
-  
+  .dropzone ul  { padding: 0px; }
