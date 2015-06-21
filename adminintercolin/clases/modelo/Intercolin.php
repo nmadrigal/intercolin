@@ -16,7 +16,7 @@
 	}
 	//example  insert
 	//INSERT INTO `venta_inmueble` 
-	//(`id`, `titulo`, `descripcion`, `precio`, `moneda_precio`, `zona`, `colonia`, `tipo_inmueble`, `metros_terreno`, `metros_construccion`, `url_image`) VALUES (NULL, '', 'se vende casa muy bonita en la colonia del valle', '1,500000', 'pesos', 'Benito Juárez', 'Del Valle', 'casa', '150', '120', '');
+	//(`id`, `titulo`, `descripcion`, `precio`, `moneda_precio`, `zona`, `colonia`, `tipo_inmueble`, `metros_terreno`, `metros_construccion`, `url_image`) VALUES (NULL, '', 'se vende casa muy bonita en la colonia del valle', '1,500000', 'pesos', 'Benito Juï¿½rez', 'Del Valle', 'casa', '150', '120', '');
 	
 	function getTipoInmuebles(){
 		$sql = "SHOW COLUMNS FROM `venta_inmueble` LIKE 'tipo_inmueble'";
@@ -36,13 +36,14 @@
 		return $tipoInmuebles ;
 	}
 	
-	function addAnuncio( $descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosTerreno, $metrosConst, $numCuartos, $numPlantas ){
+	function addAnuncio( $descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosTerreno, $metrosConst, $numCuartos, $numPlantas, $latLng, $direccion ){
 		//$mes = date("m");
 		//$ano = date("y");
 		$fecha = date("d/m/Y H:i:s", time());
 		//$hora = date("h:i");
 		//$date = DATE_FORMAT(NOW(), '%e %c %Y');	
-		$sql = "INSERT INTO venta_inmueble (descripcion, precio, zona, colonia, tipo_inmueble, metros_terreno, metros_construccion, num_cuartos, num_plantas, fecha_publicacion ) values ('$descripcion', '$precio', '$zona', '$colonia', '$tipoInmueble', '$metrosTerreno', '$metrosConst', '$numCuartos', '$numPlantas', CURRENT_TIMESTAMP)";
+		$sql = "INSERT INTO venta_inmueble (descripcion, precio, zona, colonia, tipo_inmueble, metros_terreno, metros_construccion, num_cuartos, num_plantas, latLng, direccion, fecha_publicacion ) values ('$descripcion', '$precio', '$zona', '$colonia', '$tipoInmueble', '$metrosTerreno', '$metrosConst', '$numCuartos', '$numPlantas', '$latLng', '$direccion', CURRENT_TIMESTAMP)";
+		echo $sql;
 		$this->objDB->insert($sql);
 		
 		return $id = mysql_insert_id();
@@ -64,7 +65,7 @@
 	}
 	
 	function getVentaInmueble(){
-		$sql = "SELECT * FROM venta_inmueble ORDER BY fecha_publicacion DESC";
+		$sql = "SELECT * FROM venta_inmueble ORDER BY DATE(fecha_publicacion) DESC";
 		$idcon=$this->objDB->select($sql); 
 	    while($row=$this->objDB->getRow($idcon))
 		{
@@ -86,31 +87,6 @@
 		
 	}
 	
-	// function addGas($concept,$tot,$dia,$mes,$ano){
-	  // $sql="INSERT INTO gastos_personales (concepto, monto, dia, mes, ano) VALUES ('$concept', '$tot', '$dia', '$mes', '$ano')";
- 	  // $this->objDB->insert($sql);
-	  
-
-	// }
-
-	// function addComp($fact,$prov,$tot,$tipo,$dia,$mes,$ano){ 	
-	  // $sql="INSERT INTO compras (factura, proveedor, monto, tipo, dia, mes, ano) VALUES ('$fact', '$prov', '$tot', '$tipo', '$dia', '$mes', '$ano')";	    	  
-          // $this->objDB->insert($sql);
-	  
-   
-	// }
-
-
-	
-
-	// function delVen($idVen){
-	  // $sql="DELETE FROM ventas WHERE id_ven='$idVen'";
-	  // $this->objDB->delete($sql);
-	  // //echo $sql;
-
-	// }
-
-
 	// function getComp($tipoCom,$tipoCCom,$dia,$mes,$ano){	
 	   
 	  // $compras = array();
@@ -131,7 +107,7 @@
 	    // if($mes!=0 && $ano!=0)
 	      // $sql="SELECT * FROM compras WHERE mes='$mes' AND ano='$ano'";
 	    	
-	  // if($tipoCom=="todo" && $tipoCCom=="ano")	//todo - año
+	  // if($tipoCom=="todo" && $tipoCCom=="ano")	//todo - aï¿½o
 	    // if($ano!=0)
 	    // $sql="SELECT * FROM compras WHERE ano='$ano'";
 
@@ -215,7 +191,7 @@
 	    // if($mes!=0 && $ano!=0)
 	      // $sql="SELECT * FROM ventas WHERE mes='$mes' AND ano='$ano'";
 	    	
-	  // if($tipoVen=="todo" && $tipoCVen=="ano")	//todo - año
+	  // if($tipoVen=="todo" && $tipoCVen=="ano")	//todo - aï¿½o
 	    // if($ano!=0)
 	      // $sql="SELECT * FROM ventas WHERE ano='$ano'";
 
@@ -238,7 +214,7 @@
 	      // //else
 	   	// // $sql="SELECT * FROM ventas WHERE tipo='$tipoVen'";
 
-	      // if($tipoCVen=="ano")	//año
+	      // if($tipoCVen=="ano")	//aï¿½o
 		// if($ano!=0)
   	          // $sql="SELECT * FROM ventas WHERE tipo='$tipoVen' AND ano='$ano'";
 	     // // else

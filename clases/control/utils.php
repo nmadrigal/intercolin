@@ -1,19 +1,25 @@
 <?PHP
  ob_start();
-	include("config.php");
-	//$idAnuncio = $_POST["idAnuncio"];
- 
-	require_once($conf["pathgui"]."GUIIntercolin.php");
-	$objGui=new GUIIntercolin($conf);
-	require_once($conf["pathmodelo"]."Intercolin.php");
-	$obj= new Intercolin($conf);		
 
-	if(isset($_GET["op"]))
-		$op = $_GET["op"];
-	elseif(isset($_POST["op"]))
-		$op = $_POST["op"];
-		
+	        include("../../include/config.php");
+	        require_once($conf["pathgui"]."GUIIntercolin.php");
+		$this->objGui=new GUIIntercolin($conf);
+		require_once("../modelo/Intercolin.php");
+		$this->obj= new Intercolin($conf);
+		$this->conf=$conf;
+
+	if(isset($_GET['op']))
+		$op = $_GET['op'];
+	if(isset($_POST['op']))
+		$op = $_POST['op'];
+
 	switch($op){
+		case "allventa";
+                        $tipoInmueble =  $_POST["tipoInmueble"];
+                        //$inmuebles = $obj->getVentaTIpoInmueble($tipoInmueble);
+			echo $tipoInmueble;
+	        break;
+
 		case "agregarAnuncio";
 			$zona = $_POST["zona"];
 			$colonia = $_POST["colonia"];
@@ -31,13 +37,7 @@
 				$metrosConst = $_POST["construccion"];
 			if(isset($_POST["descripcion"]))	
 				$descripcion = $_POST["descripcion"];
-			if(isset($_POST["latLng"]))
-				$latLng = $_POST["latLng"];
-			if(isset($_POST["direccion"]))
-				$direccion = $_POST["direccion"];
-				
-							
-			$id = $obj->addAnuncio($descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosTerreno, $metrosConst, $numCuartos, $numPlantas, $latLng, $direccion );	
+			$id = $obj->addAnuncio($descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosTerreno, $metrosConst, $numCuartos, $numPlantas );	
 			echo $id;			
 			  
 		break;	  
@@ -65,5 +65,4 @@
 			  
 		break;	  	
 	}
-		
 ?>

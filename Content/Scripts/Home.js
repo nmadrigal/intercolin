@@ -4,15 +4,14 @@ $(document).ready(function () {
 });
 
 var Home = Home || {};
+var map;
 (function ($, undefined) {
 
     //
     Home.Index = function () {
-        function init() {
-            //_view = $('#recipe-finder');            
+        function init() {        
             initControls();
             initEvents();
-
         }
         function initControls() {            
             $('.carousel').carousel();
@@ -20,21 +19,37 @@ var Home = Home || {};
 							
 			//pagination
 			// var items = $(".grid-wrapper .row").children(".thumbnail-anuncio").length;			
-			// if(items >= 3)
-				// alert("major");
-						 
+			
 			var mapOptions = {
-				zoom: 16,
-				center: new google.maps.LatLng(20.11906219999996,-98.73450786931153)
-			}
-			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);			
-			var kmlLayer = new google.maps.KmlLayer({
-				url: 'http://www.intercolin.com/Content/maps/pachucaintercolin.kml?rand="+(new Date()).getTime()',
-                                map: map,
-                                preserveViewport: true
+				zoom: 19,
+				center: new google.maps.LatLng(20.119218, -98.734287),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);						
+			var pachuca = new google.maps.LatLng(20.118930, -98.734248); //20.118930, -98.734248
+			var logo = new google.maps.MarkerImage(
+				"http://intercolin.com/Content/Images/icn-logo-intercolin.png",
+				new google.maps.Size(50,40)				
+			);
+			
+			var marker = new google.maps.Marker({
+				position: pachuca,
+				map: map,
+				title: "Oficina Intercolin",
+				info: "<div class='info-window'><figure><img src='http://intercolin.com/Content/Images/oficinaPachuca.png' alt='Oficina Pachuca' /><figcaption>Oficina en Pachuca</figvaption></figure><p><label>Teléfono:</label><label>2942479</label></p><p><label>Horario:</label><label>Lun-Vie - 8am a 8pm</label></p><p>Av. Francisco I Madero 501-A, Centro, Pachuca, Hidalgo, Mexico</p></div>",
+				icon: logo
 			});
-
-			kmlLayer.setMap(map);
+			
+			var info = new google.maps.InfoWindow({
+				content: marker['info']
+			});
+			
+			info.open(map,marker);
+			
+			google.maps.event.addListener(marker, "click", function(e){
+				info.open(map, marker);
+			});
+			
         }
 
         function initEvents() {

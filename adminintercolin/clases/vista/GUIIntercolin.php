@@ -146,12 +146,20 @@
 					<label>Detalle del Anuncio</label>
 					<textarea id="descripcion" name="descripcion" required="true"></textarea>
 				</article>
+				<article>
+					<p>
+						<label>Selecciona una ubicación arrastrando el marcador hasta la posicion deseada</label>															
+						<input type="text" class="direccion" disabled data-location="0" />						
+					</p>
+					<div id="map-canvas"></div>
+				</article>
 				<div class="row">
 					<div class="col-sm-6 col-md-6 col-lg-6">
 						<a id="agregarAnuncioSubmit" class="button submit">Guardar y Elegir imagenes</a>
 					</div>
 				</div>
 			</form>
+			<script type="text/javascript"> Admin.Index.InitAddMapMap ();  </script>
 		</section>
 		<section id="upload-images" class="detalle-anuncio dropzone-section">
 			<fieldset class="carousel">				
@@ -344,6 +352,14 @@
 					<label>Detalle del Anuncio</label>
 					<textarea id="descripcion" name="descripcion" required="true"><?php echo $detalleAnuncio["descripcion"]; ?></textarea>
 				</article>
+				<article>
+					<p>
+						<label>Selecciona una ubicación arrastrando el marcador hasta la posicion deseada</label>															
+						<input type="text" class="direccion" disabled data-location="0" />
+						<!--<label>Nota: Click derecho para posicionar un marcador en el lugar deseado<label>-->
+					</p>
+					<div id="map-canvas"></div>
+				</article>
 				<div class="row">
 					<div class="col-sm-6 col-md-6 col-lg-6">
 						<!--<button type="submit" value="submit" class="button submit">Guardar Cambios</button>-->
@@ -354,6 +370,7 @@
 					</div>
 				</div>
 			</form>	
+			<script> Admin.Index.InitEditMap (); </script>
 		</section>
 		<section id="uploadEditImages" class="detalle-anuncio dropzone-section">
 			

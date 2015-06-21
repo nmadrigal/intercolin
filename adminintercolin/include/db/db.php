@@ -1,10 +1,6 @@
 <?PHP
-// $host="intercolincom.ipagemysql.com";
-// $db="intercolin";
-// $user="intercolin14";
-// $passwd="azul27";
-$host="localhost";
+$host="intercolincom.ipagemysql.com";
 $db="intercolin";
-$user="root";
-$passwd="";
+$user="intercolin14";
+$passwd="azul27";
 ?>

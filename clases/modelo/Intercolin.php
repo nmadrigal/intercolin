@@ -13,13 +13,29 @@
 		include($this->conf["pathdb"]."db.php");
 		$this->objDB=new DBMysql();
 		$this->objDB->conect($db,$host,$user,$passwd);		
+
 	}
-	//example  insert
-	//INSERT INTO `venta_inmueble` 
-	//(`id`, `titulo`, `descripcion`, `precio`, `moneda_precio`, `zona`, `colonia`, `tipo_inmueble`, `metros_terreno`, `metros_construccion`, `url_image`) VALUES (NULL, '', 'se vende casa muy bonita en la colonia del valle', '1,500000', 'pesos', 'Benito Ju�rez', 'Del Valle', 'casa', '150', '120', '');
+	
+       function getTipoInmuebles(){
+		$sql = "SHOW COLUMNS FROM `venta_inmueble` LIKE 'tipo_inmueble'";
+		$idcon = $this->objDB->select($sql);
+		$row = mysql_fetch_array($idcon);
+		if(stripos(".".$row[1],"enum(") > 0) $row[1]=str_replace("enum('","",$row[1]);
+		else $row[1]=str_replace("set('","",$row[1]);
+		
+		$row[1]=str_replace("','","\n",$row[1]);
+		$row[1]=str_replace("')","",$row[1]);
+		$ar = explode("\n",$row[1]);
+		for ($i=0;$i<count($ar);$i++) 
+			{ 
+				//$arOut[str_replace("''","'",$ar[$i])]=str_replace("''","'",$ar[$i]);	
+				$tipoInmuebles[] = $ar[$i];
+			}
+		return $tipoInmuebles ;
+	}
 	
 	function getVentaInmueble(){
-	$sql = "SELECT id, titulo, descripcion, precio, moneda_precio, estado, zona, colonia, tipo_inmueble, metros_terreno, metros_construccion, num_cuartos, num_banos, num_plantas, amueblado, url_image, DATE_FORMAT( fecha_publicacion,  '%d-%m-%Y' ) AS fecha_publicacion FROM venta_inmueble ORDER BY fecha_publicacion DESC";
+	$sql = "SELECT id, titulo, descripcion, precio, moneda_precio, estado, zona, colonia, tipo_inmueble, metros_terreno, metros_construccion, num_cuartos, num_banos, num_plantas, amueblado, url_image, DATE_FORMAT( fecha_publicacion,  '%d-%m-%Y' ) AS fecha_publicacion FROM venta_inmueble ORDER BY DATE(fecha_publicacion) DESC";
 		$idcon=$this->objDB->select($sql); 
 	    while($row=$this->objDB->getRow($idcon))
 		{
@@ -31,7 +47,24 @@
 		else
 			return false;
 	}
-	
+
+        public function getVentaByType($tipoInmueble){
+           $sql = "SELECT id, titulo, descripcion, precio, moneda_precio, estado, zona, colonia, tipo_inmueble, metros_terreno, metros_construccion, num_cuartos, num_banos, num_plantas, amueblado, url_image, DATE_FORMAT( fecha_publicacion,  '%d-%m-%Y' ) AS fecha_publicacion FROM venta_inmueble WHERE tipo_inmueble='$tipoInmueble' ORDER BY DATE(fecha_publicacion) DESC";
+
+            $idcon=$this->objDB->select($sql); 
+	    while($row=$this->objDB->getRow($idcon))
+		{
+			$ventaByType[] = $row;			 
+		}
+
+		if(isset($ventaByType))
+                    return $ventaByType;
+		else
+			echo "No se encontraron resultados";
+               //echo $tipoInmueble;
+
+       }
+
 	function getDetalleAnuncio($id){
 		$detalleAnuncio = array();
 		$sql = "SELECT  id, titulo, descripcion, precio, moneda_precio, estado, zona, colonia, tipo_inmueble, metros_terreno, metros_construccion, num_cuartos, num_banos, num_plantas, amueblado, url_image, DATE_FORMAT( fecha_publicacion,  '%d-%m-%Y' ) AS fecha_publicacion FROM venta_inmueble WHERE id='$id'";
@@ -54,6 +87,6 @@
 		
 		mail($for, $subj, $mensaje, $cabeceras);		
 	}
-	
+
   }
 ?>

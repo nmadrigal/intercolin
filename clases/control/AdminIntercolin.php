@@ -19,21 +19,26 @@
 		case "index";
 				$this->objGui->showIndex();
 			break;
-		
-		// case "venta";
-				// $this->objGui->showVenta();
-				
-			// break;
 
 		case "servicios";
 				$this->objGui->showServicios();
 			break;
 			
-		case "venta";				
+		case "venta";								
+                                $tipoInmuebles = $this->obj->getTipoInmuebles();
+				$this->objGui->showGetVentaByType($tipoInmuebles);				
+			break;
+		
+               case "ventaByType";
+			       $tipoInmueble = $_GET["tipoInmueble"];
+                               $ventaByType = $this->obj->getVentaByType($tipoInmueble);
+			       $this->objGui->showGetVenta($ventaByType);
+			break;
+
+		case "allventa";				
+                                $tipoInmuebles = $this->obj->getTipoInmuebles();
 				$ventaInmueble = $this->obj->getVentaInmueble();
-				if($ventaInmueble)
-					$this->objGui->showGetVenta($ventaInmueble);
-				
+				$this->objGui->showGetVenta($ventaInmueble);
 			break;
 			
 		case "detalleanuncio";
@@ -42,7 +47,11 @@
 				$this->objGui->showDetalleAnuncio($detalles);
 				
 			break;
-		
+		case "ubicacion";
+                                $this->objGui->showUbicacion();
+                                  
+                        break;
+
 		case "contacto";
 			$ban = $_GET["ban"];
 			if($ban == 0)			
@@ -64,6 +73,7 @@
 			
 
 	  } //switch
+
 	} //function
   }  //clase
 

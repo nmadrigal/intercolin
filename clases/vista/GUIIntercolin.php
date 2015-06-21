@@ -16,7 +16,13 @@
 	}
 	
 	function showIndex() { ?>
-	
+	        <section>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                             <h1>Profesionales en la gestoría, tramite y promoción para la compra-venta de inmuebles</h1>
+                        </div>
+                    </div>
+                </section>
 		<section>						
 			<div id="carousel-home" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
@@ -58,7 +64,7 @@
 					<span class="glyphicon glyphicon-chevron-right"></span>
 				</a>
 			</div>
-			<fieldset>	
+			<article>	
                              	<h1>Intermediación Inmobiliaria</h1>
 				<div class="search">
 					<div class="container-fluid">
@@ -134,11 +140,17 @@
 				</div>
 			
 				<div class="row home">                                  
-                                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
 					<p>En INTERCOLIN, somos un grupo de profesionales  comprometidos en brindarle asesoramiento práctico y gratuito durante todo el proceso de la intermediación inmobiliaria, ya que contamos con todos los conocimientos necesarios para una compraventa exitosa y sin contratiempos.</p>
-                                  </div>
+                                    </div>
+			    
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                                        <figure><img src="Content/Images/icn-infonavit.png" alt="Aceptamos Credito Infonavit">
+                                           <figurecaption>Crédito Infonavit</figurecaption>
+                                        </figure>
+                                    </div>
 				</div>
-			</fieldset>
+                        </article>
 		</section>
 	<?PHP }
 	
@@ -240,7 +252,7 @@
 					<?php 
 						for($i=0; $i<count($ventaInmueble); $i++)
 						{ ?>
-							<div class="col-sm-3 col-md-3 col-lg-3 thumbnail-anuncio">
+							<div class="col-sm-4 col-md-3 col-lg-3 thumbnail-anuncio">
 								<p>
 								<?php
 									$noImage = 0;									
@@ -296,6 +308,78 @@
 	 <?PHP
 	}
 	 
+	 function showGetVentaByType($tipoInmueble){?>				
+		<section class="grid-results">	
+			<h1>Inmuebles en Venta</h1>
+			
+			<article class="row user-control">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<figure id="casa">
+						<a><img src="Content/Images/tipoCasas.png" alt="Casas"></a>
+						<figurecaption>Casas</figurecaption>
+					</figure>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<figure id="terreno">
+						<a><img src="Content/Images/tipoTerreno.png" alt="Casas"></a>
+						<figurecaption>Terrenos</figurecaption>
+					</figure>
+				</div>
+			</article>
+			
+			<div class="container-fluid grid-wrapper">
+				<div class="row">
+				<!--	<?php 
+						for($i=0; $i<count($ventaInmueble); $i++)
+						{ ?>
+							<div class="col-sm-4 col-md-3 col-lg-3 thumbnail-anuncio">
+								<p>
+								<?php
+									$noImage = 0;																		
+									$directory = $this->conf['uploads'].$ventaInmueble[$i]["id"]."/";										
+										if(file_exists($directory))
+										{									
+											$images = glob($directory . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+											if($images)
+											{
+												$randomImage = $images[array_rand($images)]; 											
+												?>
+												<a href="index.php?mod=home&amp;op=detalleanuncio&amp;id=<?php echo $ventaInmueble[$i]["id"]; ?>"><img class="thumbnail" src="<?php echo $randomImage; ?>" alt="thumbnail"></a> 
+									<?php	}
+											else									
+												$noImage = 1;
+										}
+										else
+										{	$noImage = 1; }
+																		
+									if($noImage == 1)
+									{ ?>
+										<a href="index.php?mod=home&amp;op=detalleanuncio&amp;id=<?php echo $ventaInmueble[$i]["id"]; ?>"><img class="thumbnail" src="<?php echo $this->conf['images']?>default.png" alt="Image  default" ></a>
+							  <?php } ?>
+								</p>
+								<div class="thumbnail-text">
+									<div class="row">
+										<div class="col-sm-12 col-md-12 col-lg-12">
+											<label><?php echo $ventaInmueble[$i]["zona"]; ?></label> - <span><?php echo $ventaInmueble[$i]["colonia"]; ?></span>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-sm-12 col-md-12 col-lg-12">
+											<label>$<?php echo $ventaInmueble[$i]["precio"]; ?></label><span> <?php echo $ventaInmueble[$i]["moneda_precio"]; ?></span>
+										</div>
+									</div>
+									<?php echo $ventaInmueble[$i]["descripcion"]; ?>
+									<span><?php echo $ventaInmueble[$i]["fecha_publicacion"]; ?></span>
+								</div>	
+							</div>
+				<?php  	} ?>-->
+				</div>
+			</div>
+		</section>
+	 <?PHP
+	}
+	 
+	 
 	function showDetalleAnuncio($detalleAnuncio){?>
 		<section class="container-fluid detalle-anuncio">
 			<article class="row detalle-top">
@@ -321,15 +405,18 @@
 			$notFound = 0;			
 			$directory = $this->conf['uploads'].$detalleAnuncio["id"];					
 			$dirint = dir($directory); 
-                        $items = scandir($directory);
-			$items = count($items)-2;
-                        if($items > 6)
-			  $classThumb = "content-large";
-                        else
-                          $classThumb = "";
+			if($dirint)
+            {
+                $items = scandir($directory);
+				$items = count($items)-2;
+                if($items > 6)
+			  		$classThumb = "content-large";
+                else
+                  	$classThumb = "";
+          	}
 			$i = 0;
-			if($notFound == 0)
-			{ ?>
+			//if($notFound == 0)
+			//{ ?>
 				<div id="carousel-detalle" class="carousel slide" data-ride="carousel">					
 					<!-- Indicators -->
 					<div class="carousel-thumbnails">
@@ -396,7 +483,7 @@
 						<span class="glyphicon glyphicon-chevron-right"></span>
 					</a>
 				</div>
-	<?php   } ?>		
+	<?php   //} ?>		
 			<aside class="detalle-right">
 				<div>
 					<h3>Plantas</h3>
@@ -416,10 +503,26 @@
 				</div>
 			</aside>
 			<article class="row detalle-bottom">
-                              <div class="col-lg-12 col-md-12 col-sm-12">
-				<h3>Detalle del Anuncio</h3>
-				<div><p><?php echo $detalleAnuncio["descripcion"]; ?></p></div>
-                              </div>
+		      <div class="col-lg-12 col-md-12 col-sm-12">
+					<h3>Detalle del Anuncio</h3>
+					<div><p><?php echo $detalleAnuncio["descripcion"]; ?></p></div>
+              </div>
+              <?PHP
+                if(isset($detalleAnuncio["latLng"]))
+                { ?>
+                
+                    <div class="col-lg-12 col-md-12 col-sm-12">             
+                        <h3>Ubicación</h3>
+                        <div id="map-canvas-inmueble" class="map-canvas"></div>
+                        <?PHP
+                            $latLng = print_r($detalleAnuncio["latLng"],true);
+                            echo "<script type='text/javascript' src='Content/Scripts/InmuebleDetail.js'></script>
+                                <script type='text/javascript'>                                       
+                                    InmuebleDetail.Index.InitMapInmuebleDetail(".$latLng.");
+                                </script>";
+                        ?>
+        <?PHP   } ?>                  
+                </div>	
 			</article>
 		</section>
 	<?php }
@@ -461,14 +564,49 @@
 		</section>
 	 <?PHP
 	}
-  	
-        function showContacto(){?>
-        <section>
+
+       function showUbicacion(){?>
+         <section class="conocenos">
           <h1>Conócenos</h1>
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
-              <p>Nosotros sabemos que el vender o comprar una propiedad es una de las decisiones más importantes ya que es es el patrimonio de su familia, es por eso que INTERCOLIN le ofrece una asesoría profesional y gratuita, para llevar a buen término la operación que necesite realizar, le agradecemos de antemano que nos brinde la oportunidad de servirle. </p>
+              <p>Nosotros sabemos que el vender o comprar una propiedad es una de las decisiones más importantes ya que es es el patrimonio de su familia, es por eso que INTERCOLIN le ofrece una asesoría profesional y gratuita, para llevar a buen término la operación que necesite realizar, le agradecemos de antemano que nos brinde la oportunidad de servirle. 
+               </p>
             </div>
+          </div>
+            <div class="row asesores">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="asesores-detail">
+                <figure class="col-lg-5 col-md-5 col-sm-5">
+                    <img src="Content/Images/asesor1.png" alt="Javier Colin">
+                    <figurecaption>
+
+                    </figurecaption>                 
+                </figure>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <p>
+                        <label>Lic. Javier Colin</label>
+                        <span>Asesor Inmobiliario</span>
+                    </p>
+                </div>
+             </div>
+            </div>            
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="asesores-detail">              
+                  <figure class="col-lg-5 col-md-5 col-sm-5">
+                     <img src="Content/Images/asesor2.png" alt="Carlos C.Colin">
+                     <figurecaption>
+
+                     </figurecaption>                 
+                  </figure>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                      <p>
+                         <label>Lic. Carlos C. Colin</label>
+                         <span>Asesor Inmobiliario</span>
+                      </p>
+                  </div>
+              </div>
+            </div>            
           </div>
         </section>          
         <section class="ubicacion">
@@ -481,23 +619,18 @@
                <p>
              </div>
            </div>
-          <!--<div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-8">
-              <p>
-                 <label> Usted puede contactarse con </label>
-                 <label>Javier Colin</label>
-                 <label>Carlos Colin</label>
-                 TEL: 4992 4537 y 4119 7755 cell. 55 3983 7189
-              <p>
-            </div>
-          </div>-->
+          
           <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m22!1m12!1m3!1d3746.3666707040666!2d-98.73426112806399!3d20.118744813893958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m7!1i0!3e6!4m3!3m2!1d20.1190622!2d-98.73459369999999!4m0!5e0!3m2!1ses!2smx!4v1403493295253"  frameborder="0" style="border:0"></iframe> -->
-				<div id="map-canvas"></div>
+				<div id="map-canvas" class="map-canvas"></div>
             </div>
           </div>
         </section>
+  	<?PHP
+	}
+
+        function showContacto(){?>       
 		<section class="contacto">
 			<h2>Contactanos</h2>
 			<div class="row">
@@ -506,33 +639,33 @@
 						<div class="row">
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Nombre</label>
-								<input id="nombre" type="text" name="nombre">
+								<input id="nombre" type="text" name="nombre" required="required">
 							</p>
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Apellido</label>
-								<input id="apellido" type="text" name="apellido">
+								<input id="apellido" type="text" name="apellido" required="required">
 							</p>
 						</div>
 						<div class="row">
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Correo electrónico</label>
-								<input id="email" type="email" name="email">
+								<input id="email" type="email" name="email" required="required">
 							</p>
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Teléfono</label>
-								<input id="tel" type="tel" name="tel">
+								<input id="tel" type="tel" name="tel" required="required">
 							</p>
 						</div>
 						<div class="row">
 							<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label>Tema</label>
-								<input id="subj" type="text" name="subj">
+								<input id="subj" type="text" name="subj" required="required">
 							</p>
 						</div>
 						<div class="row">
 							<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label>Mensaje</label>
-								<textarea id="mensaje" name="mensaje"></textarea>
+								<textarea id="mensaje" name="mensaje" required="required"></textarea>
 							</p>
 						</div>
 						<div class="row">

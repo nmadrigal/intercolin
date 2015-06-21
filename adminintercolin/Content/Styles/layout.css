@@ -59,6 +59,11 @@ header ul li ul li:hover a { color: #FBD55C; }
 section  { width: 70%; margin: 0px auto; margin-bottom: 70px; } /* with search set width to 90%  */
 section img.thumbnail { width: 100%; padding: 2px; /* box-shadow: 0px 1px 4px 4px #DEDEDE; */ }
 footer { position: fixed; width: 100%; bottom: 0px; border-top: 1px solid #9BE7C3; z-index: 10; }
+
+/**** Maps ****/
+#map-canvas,
+.map-canvas { width: 100%; height: 450px; }
+
 /* Carousel */
 .carousel-inner { /* padding: 4px; */ box-shadow: 0px 4px 10px 2px #000000; z-index: -1;}
 .carousel-inner .item img { width: 100%; }
@@ -150,8 +155,9 @@ footer { position: fixed; width: 100%; bottom: 0px; border-top: 1px solid #9BE7C
 
 .admin-results .container-fluid .row p span { position: absolute; right: 0px; width: 50px; height: 42px; background: url("/adminintercolin/Content/Images/spritemap.png"); background-position: -267px -120px; opacity: .7; }
 .admin-results .container-fluid .row p span:hover { opacity: 1; cursor: pointer; }
-.admin-results .container-fluid .row .thumbnail-text div span { color: #999999; vertical-align: -webkit-baseline-middle; line-height: 9px; }
+.admin-results .container-fluid .row .thumbnail-text div span { color: #999999; vertical-align: -webkit-baseline-middle; }
 .admin-results .container-fluid .row .thumbnail-text div span + span { font-size: 12px; }
+.admin-results .container-fluid .thumbnail-text > div:first-child + div.row span { display: block; width: 100%; padding-top: 5px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .detalle-anuncio form { padding: 5px 5px 15px; background: #FFFFFF; }
 .detalle-anuncio form .row { margin: 0px; }
 /* .precio input { width: 73%; } */
@@ -166,5 +172,5 @@ footer { position: fixed; width: 100%; bottom: 0px; border-top: 1px solid #9BE7C
   .dropzone-previews .dz-preview .dz-error-mark,
   .dropzone .dz-preview.dz-success .dz-success-mark, 
   .dropzone-previews .dz-preview.dz-success .dz-success-mark  { top: -15px; right: -20px; }
-  
+  .dropzone a.dz-remove, .dropzone-previews a.dz-remove { cursor: pointer; }
   .dropzone ul  { padding: 0px; }

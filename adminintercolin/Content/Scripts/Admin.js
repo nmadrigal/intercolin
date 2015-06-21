@@ -1,12 +1,12 @@
-﻿
+
 $(document).ready(function () {
     Admin.Index.Init();
 });
 
 var Admin = Admin || {};
-(function ($, undefined) {
+(function (Admin,$, undefined) {
 
-    
+    var latLng = "";
     Admin.Index = function () {
         function init() {
                        
@@ -16,71 +16,10 @@ var Admin = Admin || {};
         }
 		
 		function initControls() {
-						 
-					// var uploader = new plupload.Uploader({
-					  // browse_button: 'browse', // this can be an id of a DOM element or the DOM element itself
-					  // url: 'upload.php'
-					// });
-					 
-					// uploader.init();
-					 
-					// uploader.bind('FilesAdded', function(up, files) {
-					  // var html = '';
-					  // plupload.each(files, function(file) {
-						// html += '<li id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></li>';
-					  // });
-					  // document.getElementById('filelist').innerHTML += html;
-					// });
-					 
-					// uploader.bind('UploadProgress', function(up, file) {
-					  // document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-					// });
-					 
-					// uploader.bind('Error', function(up, err) {
-					  // document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
-					// });
-					 
-					// document.getElementById('start-upload').onclick = function() {
-					  // uploader.start();
-					// };			 			
+		
+			//maps
+			initMaps();
 			
-			
-				// Dropzone.options.dropzoneForm = {
-				// // The camelized version of the ID of the form element
-				// paramName: "files",
-				// autoProcessQueue: false,
-				// uploadMultiple: true,
-				// parallelUploads: 100,
-				// maxFiles: 100,
-				// previewsContainer: ".dropzone-previews",
-				// clickable: true,
-				// dictDefaultMessage: 'Add files to upload by clicking or droppng them here.',
-				// addRemoveLinks: true,
-				// acceptedFiles: '.jpg,.pdf,.png,.bmp',
-				// dictInvalidFileType: 'This file type is not supported.',
-
-				// // The setting up of the dropzone
-				// init: function () {
-					// var myDropzone = this;
-
-					// $("button[type=submit]").bind("click", function (e) {
-						// e.preventDefault();
-						// e.stopPropagation();
-						// // If the user has selected at least one file, AJAX them over.
-						// if (myDropzone.files.length !== 0) {
-							// myDropzone.processQueue();
-						// // Else just submit the form and move on.
-						// } else {
-							// $('#dropzone-form').submit();
-						// }
-					// });
-
-					// this.on("successmultiple", function (files, response) {
-						// // After successfully sending the files, submit the form and move on.
-						// $('#dropzone-form').submit();
-					// });
-				// }
-			// }
 			noop = function() {};
 			Dropzone.prototype.defaultOptions = {
 			  url: null,
@@ -333,75 +272,156 @@ var Admin = Admin || {};
 			};					
 			
         }
-			
-        function initEvents() {
-			var required;			
-			//agregaranuncio
-			$("#agregarAnuncioSubmit").bind("click", function (){				
-				var element = $('#agregarAnuncioForm');				
-				required = validateForm(element);				
-				submitData(required,element,action="add")
+		
+		function initAddMap () {
+			var direccion = "add";
+			initMaps(direccion);
+		}
+		
+		function initEditMap (direccion) {			
+			initMaps(direccion);
+		}
+		
+		function initMaps(direccion){
+			var markers = [];
+			var centerPosition;
+			if(direccion == "add" || !direccion)
+				centerPosition = new google.maps.LatLng(20.119021, -98.734370); //20.119218, -98.734287
+			else
+				centerPosition = new google.maps.LatLng(direccion);
 				
-			});
-			
-			//agregar imagenes
-			$("#upload-images #agregarImagenes").bind("click", function(e){
-				e.preventDefault();
-				var id = $("#upload-images #lastID").val();				
-				saveImages(id,"add");
-			});
+			var mapOptions = {				
+				center: centerPosition,
+				zoom: 14,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+			// google.maps.event.addListener(map, "rightclick", function(e){				
+				// var newMarkerPosition = e.latLng;
+				// latLng = newMarkerPosition.toString().replace('(', '');
+					// latLng = latLng.replace(')', '')
+				// var urlToGetAddress = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+ latLng + "&sensor=true_or_false";
 				
-			$("#editarAnuncioSubmit").bind("click", function (){				
-				var element = $('#editarAnuncioForm');				
-				required = validateForm(element);				
-				submitData(required,element,action="edit")				
-			});
+				// $.ajax({
+					// url: urlToGetAddress,
+					// type: "POST",
+					// success: function (response){
+						// console.log(response.results);
+						// //infoWindow = response.results[0].formatted_address;
+						// setupMarker(response.results,newMarkerPosition);
+					// },
+					// error: function (err, error){
+						// console.log(err.description);
+					// }
+				// });
+				
+				
+			// });
+			setupMarker(centerPosition);
 			
-			$("#manageImages").bind("click", function (e){
-				var el = $('#editarAnuncioForm');
-				var idAnuncio = el.find("#idAnuncio").val();
-				$(this).hide();				
-				 	
-				getImagesStored(el,idAnuncio);									
-				$("#uploadEditImages").show();
-				e.preventDefault();
-			});
-			
-			$("#saveImages").bind("click", function(e){
-				var el = $('#editarAnuncioForm');
-				var idAnuncio = el.find("#idAnuncio").val();
-				saveImages(idAnuncio,"edit");
-				e.preventDefault();
-			});
-			
-			//eliminar anuncio
-			$('.admin-results .container-fluid .row p span').bind("click", function () {
-				var id = $(this).parent().parent().attr("id");				
-				var con = confirm("Desea eliminar el anuncio?");
-				if(con == true){					
-					 jQuery.ajax({
-						type: "POST",
-						url: 'clases/control/EliminarAnuncio.php',					
-						data: {'idAnuncio':  id},
-						cache: false,
-						success: function (result) {							
-							if(result)
-							{
-								   $(".admin-results .container-fluid #" + id).fadeOut('slow', function () {
-									 $(this).remove();
-									   });									  
-							}	
-						 }
-					 });
+			function setupMarker(newMarkerPosition){
+				var infoWindow;
+				if(markers.length > 0){
+					for (var i = 0; i < markers.length; i++) {
+						markers[i].setMap(null);
+					}
+					markers = [];
 				}
 				
+				// if(location.length > 1)
+				// {	
+					// var address = "<select class='address-location'>";
+					// for(var i=0; i < location.length; i++)
+					// {	
+						// if(location[i].address_components.length > 3)
+							// address += "<option value='" + location[i].formatted_address + "'>" + location[i].formatted_address + "</option>";
+					// }
+					// address += "</select>";
+					// console.log(address);
+					// $("#agregarAnuncioForm .direccion").val(location[0].formatted_address);
+				// }
 				
-			});					
+				var newMarker = new google.maps.Marker({
+					position: newMarkerPosition,
+					map: map,
+					title: "Nueva ubicación",
+					// info: address,
+					draggable: true
+				});
+				var info = new google.maps.InfoWindow({
+					content: newMarker['info']
+				});
+				
+				var geoCodergetDirection = new google.maps.Geocoder();
+				if (geoCodergetDirection) {
+					geoCodergetDirection.geocode({ location: centerPosition }, callbackData);
+					$(".direccion").attr("data-location", 0);
+				}        
+				
+				google.maps.event.addListener(newMarker, "dragend", function(e) {				
+					var geoCodergetDirection = new google.maps.Geocoder();
+					if (geoCodergetDirection) {
+						geoCodergetDirection.geocode({ location: e.latLng }, callbackData);
+						$(".direccion").attr("data-location", 1);
+					}        
 
-        }
-		
+				});
+				info.open(map,newMarker);
+				markers.push(newMarker);
+				for (var i = 0; i < markers.length; i++) {
+					markers[i].setMap(map);
+			    }
+				
+			}
+			
+			function callbackData(results, status) {
+				var newData = {};           
+				if (status == google.maps.GeocoderStatus.OK) {					
+					for (x = 0; x < results.length; x++) {
+						var obj = results[x];                    						
+						newData.latitude = results[x].geometry.location.lat();
+						newData.longitude = results[x].geometry.location.lng();                
+						for (i = 0; i < obj.address_components.length; i++) {
+							var o = obj.address_components[i];
+							switch (o.types[0]) {
+								case "street_number":
+									newData.streetnumber = o.long_name;
+									break;
+								case "route":
+									newData.street = o.long_name;
+									break;
+								case "neighborhood":
+									newData.neighborhood = o.long_name;
+								case "locality":
+									newData.city = o.long_name;
+									break;
+								case "administrative_area_level_1":
+									newData.state = o.long_name;
+									break;
+								case "country":
+									newData.country = o.long_name;
+									break;
+							}
+						};
+					};
+					
+					latLng = results[0].geometry.location.lat() + "," + results[0].geometry.location.lng();
+					console.log(latLng);
+					$(".direccion").val(newData.street + ", " + newData.streetnumber + ", " + newData.neighborhood + ", " + newData.city + ", " + newData.state + ", " + newData.country);
+					// _container.find(".latLng").val(newData.latitude + ", " + newData.longitude);
+					// _container.find(".stNumber").val(newData.streetnumber);
+					// _container.find(".stName").val(newData.street);
+					// _container.find(".city").val(newData.city);
+					// _container.find(".state").val(newData.state);
+					// _container.find(".country").val(newData.country);
+				
+				}
+			}
+			
+		}
+						
 		function submitData (required,el,action) { //el = is the view or form
-			if(!required){															
+			if(!required){																	
 					var zona = el.find("#zona").val();
 					var colonia = el.find("#colonia").val();
 					var precio = el.find("#precio").val();
@@ -411,13 +431,19 @@ var Admin = Admin || {};
 					var construccion = el.find("#construccion").val();
 					var terreno = el.find("#terreno").val();
 					var descripcion = el.find("#descripcion").val();
+					var	direccion = '';
+					if($(".direccion").attr("data-location") == 1 || $(".direccion").attr("data-location") == "1")
+						direccion = el.find(".direccion").val();
+					else
+						latLng = '';					
 					if(action == "add"){
 						jQuery.ajax({
 							type: 'POST',							
 							url: 'clases/control/functions.php',
-							data: { 'op': "agregarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion },
-							cache: true,
-							success: function (response){										
+							data: { 'op': "agregarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion, 'latLng': latLng, 'direccion': direccion },
+							cache: false,
+							success: function (response){	
+									console.log(response);
 									$("#agregarAnuncio").fadeOut('slow');
 									$("#upload-images .dropzone").append("<input type='hidden' name='id' id='lastID' value='" + response + "'>");
 									$("#upload-images").fadeIn('slow');								
@@ -430,7 +456,7 @@ var Admin = Admin || {};
 						 jQuery.ajax({
 							 type: 'POST',							 
 							 url: 'clases/control/functions.php',
-							 data: { 'op': "editarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion, 'idAnuncio': idAnuncio },
+							 data: { 'op': "editarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion, 'latLng': latLng, 'direccion': direccion, 'idAnuncio': idAnuncio },
 							 cache: true,
 							 success: function (response){																			 
 									 if(response == 1)
@@ -529,6 +555,71 @@ var Admin = Admin || {};
 				});
 		}
 		
+		function initEvents() {
+			var required;			
+			//agregaranuncio
+			$("#agregarAnuncioSubmit").bind("click", function (){				
+				var element = $('#agregarAnuncioForm');				
+				required = validateForm(element);				
+				submitData(required,element,action="add")
+				
+			});
+			
+			//agregar imagenes
+			$("#upload-images #agregarImagenes").bind("click", function(e){
+				e.preventDefault();
+				var id = $("#upload-images #lastID").val();				
+				saveImages(id,"add");
+			});
+				
+			$("#editarAnuncioSubmit").bind("click", function (){				
+				var element = $('#editarAnuncioForm');				
+				required = validateForm(element);				
+				submitData(required,element,action="edit")				
+			});
+			
+			$("#manageImages").bind("click", function (e){
+				var el = $('#editarAnuncioForm');
+				var idAnuncio = el.find("#idAnuncio").val();
+				$(this).hide();				
+				 	
+				getImagesStored(el,idAnuncio);									
+				$("#uploadEditImages").show();
+				e.preventDefault();
+			});
+			
+			$("#saveImages").bind("click", function(e){
+				var el = $('#editarAnuncioForm');
+				var idAnuncio = el.find("#idAnuncio").val();
+				saveImages(idAnuncio,"edit");
+				e.preventDefault();
+			});
+			
+			//eliminar anuncio
+			$('.admin-results .container-fluid .row p span').bind("click", function () {
+				var id = $(this).parent().parent().attr("id");				
+				var con = confirm("Desea eliminar el anuncio?");
+				if(con == true){					
+					 jQuery.ajax({
+						type: "POST",
+						url: 'clases/control/EliminarAnuncio.php',					
+						data: {'idAnuncio':  id},
+						cache: false,
+						success: function (result) {							
+							if(result)
+							{
+								   $(".admin-results .container-fluid #" + id).fadeOut('slow', function () {
+									 $(this).remove();
+									   });									  
+							}	
+						 }
+					 });
+				}
+				
+				
+			});					
+
+        }
 		// function readURL(input) {
 			// if (input.files && input.files[0]) {
             // var reader = new FileReader();
@@ -541,10 +632,15 @@ var Admin = Admin || {};
 			// }
 		// }
         return {
-            Init: init
+            Init: init,
+			InitAddMap: initAddMap,
+			InitEditMap: initEditMap
             //View: _view
         };
 
     }();
 
-})(jQuery);
+	Admin.Index.InitEditMap = function () {
+		//alert("editing");
+	}
+})(Admin,jQuery);
