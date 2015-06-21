@@ -1,0 +1,7 @@
+# Begin password protection #
+AuthName "Administration"
+Require valid-user
+#AuthUserFile "/home/users/web/b2513/ipg.intercolincom/adminintercolin/.htpasswd"
+AuthType basic
+# End password protection #
+

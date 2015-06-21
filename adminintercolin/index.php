@@ -10,11 +10,11 @@
 		<link rel="stylesheet" href="Content/Styles/Plugins/bootstrap.css" type="text/css" />
 		<link rel="stylesheet" href="Content/Styles/Plugins/jquery.ui.plupload.css" type="text/css" />
 		<link rel="stylesheet" href="Content/Styles/Plugins/dropzone.css" type="text/css" />
-		<link rel="stylesheet" href="Content/Styles/layout.css" type="text/css" />
- <script type="text/javascript" src="Content/Scripts/Plugins/jquery-1.9.0.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.10"></script>
- <script type="text/javascript" src="Content/Scripts/Admin.js"></script>		
+		<link rel="stylesheet" href="Content/Styles/layout.css" type="text/css" />		
         <meta name="viewport" content="width=device-width" />        
+		<script type="text/javascript" src="Content/Scripts/Plugins/jquery-1.9.0.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.10"></script>
+		<script type="text/javascript" src="Content/Scripts/Admin.js"></script>
     </head>
 	<body>
 		<header>
@@ -85,10 +85,10 @@
         </ul>-->
 	</nav>
     </footer>	
+ 
  <script type="text/javascript" src="Content/Scripts/Plugins/bootstrap.js"></script>
  <script type="text/javascript" src="Content/Scripts/Plugins/carousel.js"></script> 
  <script type="text/javascript" src="Content/Scripts/Plugins/plupload.full.min.js"></script> 
- <script type="text/javascript" src="Content/Scripts/Plugins/dropzone.js"></script> 
-
+ <script type="text/javascript" src="Content/Scripts/Plugins/dropzone.js"></script>  
 </body>
 </html>

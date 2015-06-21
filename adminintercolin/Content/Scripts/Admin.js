@@ -1,4 +1,4 @@
-
+﻿
 $(document).ready(function () {
     Admin.Index.Init();
 });
@@ -18,7 +18,7 @@ var Admin = Admin || {};
 		function initControls() {
 		
 			//maps
-			initMaps();
+			//initMaps();
 			
 			noop = function() {};
 			Dropzone.prototype.defaultOptions = {
@@ -278,17 +278,19 @@ var Admin = Admin || {};
 			initMaps(direccion);
 		}
 		
-		function initEditMap (direccion) {			
-			initMaps(direccion);
-		}
+		//function initEditMap (direccion) {			
+			//initMaps(direccion);
+		//}
 		
 		function initMaps(direccion){
 			var markers = [];
 			var centerPosition;
 			if(direccion == "add" || !direccion)
 				centerPosition = new google.maps.LatLng(20.119021, -98.734370); //20.119218, -98.734287
-			else
-				centerPosition = new google.maps.LatLng(direccion);
+			else{
+				var split = direccion.split(",")
+				centerPosition = new google.maps.LatLng(parseFloat(split[0]),parseFloat(split[1]));
+			}
 				
 			var mapOptions = {				
 				center: centerPosition,
@@ -345,7 +347,7 @@ var Admin = Admin || {};
 					position: newMarkerPosition,
 					map: map,
 					title: "Nueva ubicación",
-					// info: address,
+					//info: address,
 					draggable: true
 				});
 				var info = new google.maps.InfoWindow({
@@ -366,7 +368,7 @@ var Admin = Admin || {};
 					}        
 
 				});
-				info.open(map,newMarker);
+				//info.open(map,newMarker);
 				markers.push(newMarker);
 				for (var i = 0; i < markers.length; i++) {
 					markers[i].setMap(map);
@@ -406,7 +408,6 @@ var Admin = Admin || {};
 					};
 					
 					latLng = results[0].geometry.location.lat() + "," + results[0].geometry.location.lng();
-					console.log(latLng);
 					$(".direccion").val(newData.street + ", " + newData.streetnumber + ", " + newData.neighborhood + ", " + newData.city + ", " + newData.state + ", " + newData.country);
 					// _container.find(".latLng").val(newData.latitude + ", " + newData.longitude);
 					// _container.find(".stNumber").val(newData.streetnumber);
@@ -432,10 +433,9 @@ var Admin = Admin || {};
 					var terreno = el.find("#terreno").val();
 					var descripcion = el.find("#descripcion").val();
 					var	direccion = '';
-					if($(".direccion").attr("data-location") == 1 || $(".direccion").attr("data-location") == "1")
+					if($("#agregarAnuncioForm .direccion").attr("data-location") == 1 || $("#agregarAnuncioForm .direccion").attr("data-location") == "1")
 						direccion = el.find(".direccion").val();
-					else
-						latLng = '';					
+								
 					if(action == "add"){
 						jQuery.ajax({
 							type: 'POST',							
@@ -452,11 +452,11 @@ var Admin = Admin || {};
 						});
 					}
 					if(action == "edit"){
-						var idAnuncio = el.find("#idAnuncio").val();						
+						var idAnuncio = el.find("#idAnuncio").val();					
 						 jQuery.ajax({
 							 type: 'POST',							 
 							 url: 'clases/control/functions.php',
-							 data: { 'op': "editarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion, 'latLng': latLng, 'direccion': direccion, 'idAnuncio': idAnuncio },
+							 data: { 'op': "editarAnuncio", 'zona': zona, 'colonia': colonia, 'precio': precio, 'tipoInmueble': tipoInmueble, 'numPlantas': numPlantas, 'numCuartos': numCuartos, 'construccion': construccion, 'terreno': terreno, 'descripcion': descripcion, 'latLng': latLng, 'direccion': direccion,'idAnuncio': idAnuncio },
 							 cache: true,
 							 success: function (response){																			 
 									 if(response == 1)
@@ -490,7 +490,6 @@ var Admin = Admin || {};
 					
 				});
 			
-				
 			return required;
 		}
 		
@@ -596,7 +595,7 @@ var Admin = Admin || {};
 			});
 			
 			//eliminar anuncio
-			$('.admin-results .container-fluid .row p span').bind("click", function () {
+			$('.admin-results .icn-delete').bind("click", function () {
 				var id = $(this).parent().parent().attr("id");				
 				var con = confirm("Desea eliminar el anuncio?");
 				if(con == true){					
@@ -634,13 +633,13 @@ var Admin = Admin || {};
         return {
             Init: init,
 			InitAddMap: initAddMap,
-			InitEditMap: initEditMap
-            //View: _view
+            InitMaps: initMaps
         };
 
     }();
 
-	Admin.Index.InitEditMap = function () {
-		//alert("editing");
+	Admin.Index.InitEditMap = function (lat,lng) {
+		var direccion = lat +  ", "+ lng;
+		Admin.Index.InitMaps(direccion);
 	}
 })(Admin,jQuery);

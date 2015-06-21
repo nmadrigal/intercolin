@@ -60,7 +60,10 @@
 				$metrosTerreno = $_POST["terreno"];
 			if(isset($_POST["descripcion"]))	
 				$descripcion = $_POST["descripcion"];
-			$result = $obj->editarAnuncio($descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosConst, $metrosTerreno, $numCuartos, $numPlantas, $idAnuncio );														
+			if(isset($_POST["latLng"]))	
+				$latLng = $_POST["latLng"];
+			
+			$result = $obj->editarAnuncio($descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosConst, $metrosTerreno, $numCuartos, $numPlantas, $latLng, $idAnuncio );														
 			echo $result;			
 			  
 		break;	  	

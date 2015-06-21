@@ -35,13 +35,13 @@
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
 				    <div class="item active">
-					<img src="Content/Images/slide1.jpg" alt="Ciudad de México"/>
+					<img src="Content/Images/mexicoDF.png" alt="Ciudad de México"/>
 					<div class="carousel-caption">
 						<h3>México Distrito Federal</h3>
 					</div>
 				    </div>
 				    <div class="item">
-					  <img src="Content/Images/slide2.jpg" alt="Pachuca Hidalgo"/>
+					  <img src="Content/Images/pachuca.png" alt="Pachuca Hidalgo"/>
 					  <div class="carousel-caption">
 						<h3>Pachuca</h3>
 						<!--<p>This is a description</p>-->
@@ -49,7 +49,7 @@
 			            </div>
 
                                     <div class="item">
-					  <img src="Content/Images/slide3.jpg" alt="Cuernavaca Morelos"/>
+					  <img src="Content/Images/cuernavaca.png" alt="Cuernavaca Morelos"/>
 					  <div class="carousel-caption">
 						<h3>Cuernavaca</h3>
 						<!--<p>This is a description</p>-->
@@ -308,7 +308,8 @@
 	 <?PHP
 	}
 	 
-	 function showGetVentaByType($tipoInmueble){?>				
+	 function showGetVentaByType($tipoInmueble){?>		
+		
 		<section class="grid-results">	
 			<h1>Inmuebles en Venta</h1>
 			
@@ -404,19 +405,17 @@
 			<?php
 			$notFound = 0;			
 			$directory = $this->conf['uploads'].$detalleAnuncio["id"];					
-			$dirint = dir($directory); 
-			if($dirint)
-            {
-                $items = scandir($directory);
-				$items = count($items)-2;
-                if($items > 6)
-			  		$classThumb = "content-large";
-                else
-                  	$classThumb = "";
-          	}
+			$dirint = dir($directory); 						
+			$items = scandir($directory);
+			$items = count($items)-2;
+			if($items > 6)
+			  $classThumb = "content-large";
+			else
+			  $classThumb = "";
+		
 			$i = 0;
-			//if($notFound == 0)
-			//{ ?>
+			if($notFound == 0)
+			{ ?>
 				<div id="carousel-detalle" class="carousel slide" data-ride="carousel">					
 					<!-- Indicators -->
 					<div class="carousel-thumbnails">
@@ -443,8 +442,8 @@
 							 
 							 if(isset($directorySlide) && file_exists($directorySlide))
 								{ $dirintSlide = dir($directorySlide); }
-							 $j = 0;		
-						/*		$images = glob($directorySlide."/*.{png,jpg,jpeg}", GLOB_BRACE);
+						/*	 $j = 0;		
+								$images = glob($directorySlide."/*.{png,jpg,jpeg}", GLOB_BRACE);
 								foreach ($images as $image)
 								{ 
 									echo '<img src="'.$image.'">'."\n";
@@ -483,7 +482,7 @@
 						<span class="glyphicon glyphicon-chevron-right"></span>
 					</a>
 				</div>
-	<?php   //} ?>		
+	<?php   } ?>		
 			<aside class="detalle-right">
 				<div>
 					<h3>Plantas</h3>
@@ -503,27 +502,28 @@
 				</div>
 			</aside>
 			<article class="row detalle-bottom">
-		      <div class="col-lg-12 col-md-12 col-sm-12">
-					<h3>Detalle del Anuncio</h3>
-					<div><p><?php echo $detalleAnuncio["descripcion"]; ?></p></div>
-              </div>
-              <?PHP
-                if(isset($detalleAnuncio["latLng"]) && $detalleAnuncio["latLng"] != "undefined" && $detalleAnuncio["latLng"] != "")
-                { ?>
-                
-                    <div class="col-lg-12 col-md-12 col-sm-12">             
-                        <h3>Ubicación</h3>
-                        <div id="map-canvas-inmueble" class="map-canvas"></div>
-                        <?PHP
-                            $latLng = print_r($detalleAnuncio["latLng"],true);                           
-                            echo "<script type='text/javascript' src='Content/Scripts/InmuebleDetail.js'></script>
-                                <script type='text/javascript'>                                       
-                                    InmuebleDetail.Index.InitMapInmuebleDetail(".$latLng.");
-                                </script>";
-                        ?>
-        <?PHP   } ?>                  
-                </div>	
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+				<h3>Detalle del Anuncio</h3>
+				<div><p><?php echo $detalleAnuncio["descripcion"]; ?></p></div>
+                              </div>
+				<?PHP
+				if(isset($detalleAnuncio["latLng"]))
+				{ ?>
+				
+					<div class="col-lg-12 col-md-12 col-sm-12">				
+						<h3>Ubicación</h3>
+						<div id="map-canvas-inmueble" class="map-canvas"></div>
+						<?PHP
+						    $latLng = print_r($detalleAnuncio["latLng"],true);
+							echo "<script type='text/javascript' src='Content/Scripts/InmuebleDetail.js'></script>
+								<script type='text/javascript'>										
+									InmuebleDetail.Index.InitMapInmuebleDetail(".$latLng.");
+								</script>";
+						?>
+		<?PHP   } ?>					
+				</div>
 			</article>
+			
 		</section>
 	<?php }
 	 
@@ -639,33 +639,33 @@
 						<div class="row">
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Nombre</label>
-								<input id="nombre" type="text" name="nombre" required="required">
+								<input id="nombre" type="text" name="nombre">
 							</p>
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Apellido</label>
-								<input id="apellido" type="text" name="apellido" required="required">
+								<input id="apellido" type="text" name="apellido">
 							</p>
 						</div>
 						<div class="row">
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Correo electrónico</label>
-								<input id="email" type="email" name="email" required="required">
+								<input id="email" type="email" name="email">
 							</p>
 							<p class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<label>Teléfono</label>
-								<input id="tel" type="tel" name="tel" required="required">
+								<input id="tel" type="tel" name="tel">
 							</p>
 						</div>
 						<div class="row">
 							<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label>Tema</label>
-								<input id="subj" type="text" name="subj" required="required">
+								<input id="subj" type="text" name="subj">
 							</p>
 						</div>
 						<div class="row">
 							<p class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<label>Mensaje</label>
-								<textarea id="mensaje" name="mensaje" required="required"></textarea>
+								<textarea id="mensaje" name="mensaje"></textarea>
 							</p>
 						</div>
 						<div class="row">

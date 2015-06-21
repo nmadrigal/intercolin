@@ -17,7 +17,7 @@ var map;
 	    }
 		function mapDetail(lat,lng){   
 			var mapOptions = {
-				zoom: 19,
+				zoom: 17,
 				center: new google.maps.LatLng(lat,lng),
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
@@ -41,7 +41,7 @@ var map;
 				content: marker['info']
 			});
 			
-			info.open(map,marker);
+			//info.open(map,marker);
 			
 			google.maps.event.addListener(marker, "click", function(e){
 				info.open(map, marker);

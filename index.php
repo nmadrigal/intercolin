@@ -10,8 +10,8 @@
         <link href="/Content/Images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		<link rel="stylesheet" href="Content/Styles/Plugins/bootstrap.css" type="text/css" />
 		<link rel="stylesheet" href="Content/Styles/layout.css" type="text/css" />
- <script type="text/javascript" src="Content/Scripts/Plugins/jquery-2.1.1.min.js"></script>
- <script type="text/javascript" src="Content/Scripts/Plugins/bootstrap.js"></script>	
+		<script type="text/javascript" src="Content/Scripts/Plugins/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="Content/Scripts/Plugins/bootstrap.js"></script>		
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.16"></script>		
         <meta name="viewport" content="width=device-width" />        
     </head>
@@ -19,7 +19,7 @@
 		<header>
             <div>
 				<a href="./"><img src="Content/Images/logoIntercolin.png" alt="Intermediacion Intercolin"/></a>
-				<h5>Realizando tus sueños...</h5>
+				<span>Realizando tus sueños...</span>
 			</div>
 			<nav class="navbar" role="navigation">
 				<div class="container-fluid">
@@ -101,13 +101,10 @@
                                  </ul>
 			</p>
           </div>
+          <h5>Ultima actualizacion: Jun/2015
         </section>
-        <div class="row">
-         
-            <h5>Última actualización: 02/Feb/2015</h5>
-        
-        </div>
     </footer>	
+ 
  <script type="text/javascript" src="Content/Scripts/Plugins/carousel.js"></script>
  <script type="text/javascript" src="Content/Scripts/Contacto.js"></script>
  <script type="text/javascript" src="Content/Scripts/Inmuebles.js"></script>

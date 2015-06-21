@@ -20,17 +20,48 @@ var Contacto = Contacto || {};
 
         function initEvents() {
 			$("#sendEmailButton").bind("click", function(event) {
-
-                               $("#contactForm input, #contactForm textarea").each(function (i,val) {
-                                   if(!val.value || $(this).val().charAt(0) == " ")
-                                       val.className = "required";
-                                   else
-                                       val.className = "";
-                                });
-				
-                                if(!($("#contactForm input, #contactForm textarea").hasClass("required")))
-                                    $("#contactForm").submit();
-			}); 
+				var view = $("#contactForm");
+				view.find("input, textarea").each(function (i, val) {
+					if(!val.val && val.val != "")
+						val.addClass("required");
+					else
+						val.removeClass("required");
+				});
+				// var nombre = $("#contactForm #nombre");
+				// var apellido = $("#contactForm #apellido");
+				// var email = $("#contactForm #email");
+			
+				// var tel = $("#contactForm #tel");
+				// var subj = $("#contactForm #subj");
+				// var mensaje = $("#contactForm #mensaje");
+				// if(nombre.val() == "")
+					// nombre.addClass("required");
+				// else
+					// nombre.removeClass("required");
+                                // if(apellido.val() == "")
+					// apellido.addClass("required");
+				// else
+					// apellido.removeClass("required");
+				// if(email.val() == "")
+					// email.addClass("required");
+				// else
+					// email.removeClass("required");
+				// if(tel.val() == "")
+					// tel.addClass("required");	
+				// else
+					// tel.removeClass("required");
+				// if(subj.val() == "")
+					// subj.addClass("required");
+				// else
+					// subj.removeClass("required");
+				// if(mensaje.val() == "")
+					// mensaje.addClass("required");	
+				// else
+					// mensaje.removeClass("required");	
+                               
+                                // if(nombre.val() != "" && apellido.val() != "" && email.val() != "" && tel.val() != "" && subj.val() != "" && mensaje.val() != "")
+                                    // $("#contactForm").submit();
+			});
 
         }
 		 

@@ -51,9 +51,9 @@
 		
 	}
 	
-	function editarAnuncio($descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosConst, $metrosTerreno, $numCuartos, $numPlantas, $idAnuncio ){
+	function editarAnuncio($descripcion, $precio, $zona, $colonia, $tipoInmueble, $metrosConst, $metrosTerreno, $numCuartos, $numPlantas, $latLng, $idAnuncio ){
 		$fecha = date("y/m/d");
-		$sql = "UPDATE venta_inmueble SET descripcion='$descripcion', precio='$precio', zona='$zona', colonia='$colonia', tipo_inmueble='$tipoInmueble', metros_terreno='$metrosTerreno', metros_construccion='$metrosConst', num_cuartos='$numCuartos', num_plantas='$numPlantas', fecha_publicacion='$fecha' WHERE id='$idAnuncio' ";
+		$sql = "UPDATE venta_inmueble SET descripcion='$descripcion', precio='$precio', zona='$zona', colonia='$colonia', tipo_inmueble='$tipoInmueble', metros_terreno='$metrosTerreno', metros_construccion='$metrosConst', num_cuartos='$numCuartos', num_plantas='$numPlantas', latLng='$latLng', fecha_publicacion='$fecha' WHERE id='$idAnuncio' ";
 		$result = $this->objDB->update($sql);
 		return $result;
 	}

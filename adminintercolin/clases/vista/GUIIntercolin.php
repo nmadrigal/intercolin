@@ -159,7 +159,7 @@
 					</div>
 				</div>
 			</form>
-			<script type="text/javascript"> Admin.Index.InitAddMapMap ();  </script>
+			<script type="text/javascript"> Admin.Index.InitAddMap ();  </script>
 		</section>
 		<section id="upload-images" class="detalle-anuncio dropzone-section">
 			<fieldset class="carousel">				
@@ -191,9 +191,9 @@
 					<?php 
 						for($i=0; $i<count($ventaInmueble); $i++)
 						{ ?>
-							<div id="<?php echo $ventaInmueble[$i]["id"]; ?>" class="col-sm-3 col-md-3 col-lg-3">
+							<div id="<?php echo $ventaInmueble[$i]["id"]; ?>" class="col-sm-4 col-md-4 col-lg-4">
 								<p>
-									<span></span>
+									<span class="icn-delete"></span>
 								<?php
 									$noImage = 0;									
 									//if(isset($ventaInmueble[$i]["url_image"]) and $ventaInmueble[$i]["url_image"] != "")
@@ -261,7 +261,9 @@
 											<label>Fecha pub:</label>
 										</div>
 										<div class="col-sm-8 col-md-8 col-lg-8">
-											<span><?php echo $ventaInmueble[$i]["fecha_publicacion"]; ?></span>
+											<span><?php 
+												$split = split(" ",$ventaInmueble[$i]["fecha_publicacion"]);
+												echo  $split[0]; ?></span>
 										</div>
 									</div>
 									<div class="row">
@@ -370,7 +372,13 @@
 					</div>
 				</div>
 			</form>	
-			<script> Admin.Index.InitEditMap (); </script>
+			<?PHP
+			    $latLng = print_r($detalleAnuncio["latLng"],true);
+				echo "<script type='text/javascript'>										
+						Admin.Index.InitEditMap(".$latLng.");
+					</script>";
+			?>
+			<!--<script> Admin.Index.InitEditMap (); </script>-->
 		</section>
 		<section id="uploadEditImages" class="detalle-anuncio dropzone-section">
 			
