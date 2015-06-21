@@ -71,6 +71,7 @@
 		{
 			 $ventaInmueble[] = $row;			 
 		}
+		
         if(isset($ventaInmueble))
 			return $ventaInmueble;
 		else

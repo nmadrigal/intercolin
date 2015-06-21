@@ -16,46 +16,46 @@
 	}
 	
 	function showIndex() { ?>
-	        <section>
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                             <h1>Profesionales en la gestoría, tramite y promoción para la compra-venta de inmuebles</h1>
-                        </div>
-                    </div>
-                </section>
-		<section>						
+        <section class="carousel-container">
+        	<h1>Intercolin. Compra - Venta de inmuebles	</h1>				
 			<div id="carousel-home" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
 				<li data-target="#carousel-home" data-slide-to="0" class="active"></li>
 				<li data-target="#carousel-home" data-slide-to="1"></li>
 				<li data-target="#carousel-home" data-slide-to="2"></li>
+				<li data-target="#carousel-home" data-slide-to="3"></li>
 				</ol>
 
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner">
 				    <div class="item active">
-					<img src="Content/Images/slide1.jpg" alt="Ciudad de México"/>
-					<div class="carousel-caption">
-						<h3>México Distrito Federal</h3>
-					</div>
+						<img src="Content/Images/slide1.jpg" alt="Slide 1"/>
+						<div class="carousel-caption">
+
+						</div>
 				    </div>
 				    <div class="item">
-					  <img src="Content/Images/slide2.jpg" alt="Pachuca Hidalgo"/>
+					  <img src="Content/Images/slide2.jpg" alt="Slide 2"/>
 					  <div class="carousel-caption">
-						<h3>Pachuca</h3>
-						<!--<p>This is a description</p>-->
-					  </div>
-			            </div>
 
-                                    <div class="item">
-					  <img src="Content/Images/slide3.jpg" alt="Cuernavaca Morelos"/>
+					  </div>
+		            </div>
+
+                    <div class="item">
+					  <img src="Content/Images/slide3.jpg" alt="Slide 3"/>
 					  <div class="carousel-caption">
-						<h3>Cuernavaca</h3>
-						<!--<p>This is a description</p>-->
-			                  </div>
+						
+	                  </div>
 				    </div>
-                                </div>
+
+			     	<div class="item">
+					  <img src="Content/Images/slide4.jpg" alt="Slide 4"/>
+					  <div class="carousel-caption">
+						
+	                  </div>
+				    </div>
+                </div>
 				<!-- Controls -->
 				<a class="left carousel-control" href="#carousel-home" data-slide="prev">
 					<span class="glyphicon glyphicon-chevron-left"></span>
@@ -64,8 +64,9 @@
 					<span class="glyphicon glyphicon-chevron-right"></span>
 				</a>
 			</div>
-			<article>	
-                             	<h1>Intermediación Inmobiliaria</h1>
+		</section>
+		<section>		
+             	<h1>Intermediación Inmobiliaria</h1>
 				<div class="search">
 					<div class="container-fluid">
 						<div class="row">
@@ -150,7 +151,7 @@
                                         </figure>
                                     </div>
 				</div>
-                        </article>
+                        
 		</section>
 	<?PHP }
 	

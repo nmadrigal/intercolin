@@ -285,7 +285,7 @@ var Admin = Admin || {};
 		function initMaps(direccion){
 			var markers = [];
 			var centerPosition;
-			if(direccion == "add" || !direccion)
+			if(direccion == "add" || !direccion || direccion == "undefined, undefined")
 				centerPosition = new google.maps.LatLng(20.119021, -98.734370); //20.119218, -98.734287
 			else{
 				var split = direccion.split(",")

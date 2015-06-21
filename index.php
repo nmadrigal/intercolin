@@ -46,6 +46,7 @@
 				</div>
 			</nav>                           
         </header>
+        
         <div class="content-wrapper">	   
  <?PHP
 		if(isset($_GET["mod"]))
