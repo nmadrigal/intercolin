@@ -17,7 +17,7 @@
 	
 	function showIndex() { ?>
         <section class="carousel-container">
-        	<h1>Intercolin. Compra - Venta de inmuebles	</h1>				
+        	<h1>INTERCOLIN. Asesoria en la compra y venta de inmuebles	</h1>				
 			<div id="carousel-home" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
@@ -25,6 +25,7 @@
 				<li data-target="#carousel-home" data-slide-to="1"></li>
 				<li data-target="#carousel-home" data-slide-to="2"></li>
 				<li data-target="#carousel-home" data-slide-to="3"></li>
+				<li data-target="#carousel-home" data-slide-to="4"></li>
 				</ol>
 
 				<!-- Wrapper for slides -->
@@ -51,6 +52,12 @@
 
 			     	<div class="item">
 					  <img src="Content/Images/slide4.jpg" alt="Slide 4"/>
+					  <div class="carousel-caption">
+						
+	                  </div>
+				    </div>
+				    <div class="item">
+					  <img src="Content/Images/slide5.jpg" alt="Slide 5"/>
 					  <div class="carousel-caption">
 						
 	                  </div>
