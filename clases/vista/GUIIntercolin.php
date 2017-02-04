@@ -78,7 +78,7 @@
 					<div class="container-fluid">
 						<div class="row">
 							<div class="col-sm-12 col-md-12 col-lg-12">
-								<h4>Busqueda Rapida</label>							
+								<h4>Busqueda Rapida</h4>							
 							</div>
 						</div>
 						<div class="row">
@@ -148,17 +148,38 @@
 				</div>
 			
 				<div class="row home">                                  
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-					<p>En INTERCOLIN, somos un grupo de profesionales  comprometidos en brindarle asesoramiento práctico y gratuito durante todo el proceso de la intermediación inmobiliaria, ya que contamos con todos los conocimientos necesarios para una compraventa exitosa y sin contratiempos.</p>
-                                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+						<p>En INTERCOLIN, somos un grupo de profesionales  comprometidos en brindarle asesoramiento práctico y gratuito durante todo el proceso de la intermediación inmobiliaria, ya que contamos con todos los conocimientos necesarios para una compraventa exitosa y sin contratiempos.</p>
+                    </div>
 			    
-                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                                        <figure><img src="Content/Images/icn-infonavit.png" alt="Aceptamos Credito Infonavit">
-                                           <figurecaption>Crédito Infonavit</figurecaption>
-                                        </figure>
-                                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                        <figure><img src="Content/Images/icn-infonavit.png" alt="Aceptamos Credito Infonavit">
+                           <figurecaption>Crédito Infonavit</figurecaption>
+                        </figure>
+                    </div>
 				</div>
                         
+		</section>
+
+		<section>			
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-offset-3 col-md-offset-2 col-sm-offset-1 col-xs-12 col-sm-10 col-md-6 col-lg-6">
+						<div class="thumbnail">
+							<img src="http://intercolin.com/Content/Images/img-intercolinParquePoblamiento.jpg" alt="Intercolin Parque Poblamiento" />
+							<div class="caption">
+								<h1>NUEVA OFICINA - PARQUE DE POBLAMIENTO</h1>
+								<p>Calle Ferrocarril Hidalgo 201, Parque de Poblamiento 1ra sección.</p>
+								<p>
+									<a href="index.php?mod=home&amp;op=ubicacion" class="btn btn-default" role="button">Ver en mapa</a>
+								</p>
+							</div>
+						</div>						
+						
+									
+					</div>
+				</div>
+			</div>
 		</section>
 	<?PHP }
 	
@@ -621,16 +642,31 @@
            <h2>Ubicanos</h2>
            <div class="row">
              <div class="col-lg-12 col-md-12 col-sm-12">
-               <p>
-			     <label>PACHUCA</label>
-				 AV. MADERO 501-A ESQ. RIO DE LAS AVENIDAS COL. CENTRO PACHUCA HIDALGO TEL.(01 771) 294 2479 ID 72*13*81834 CELL. 771 220 4070
-               <p>
+                <h3>NUEVA OFICINA! PARQUE DE POBLAMIENTO</h3>
+               	<p>			 
+				 	AV. Constituyentes 400 esq. Ferrocarril Hidalgo (al lado de la ciclovia) COL. PARQUE DE POBLAMIENTO 1ra SECCION TEL.(01 771) 294 2479 ID 72*13*81834 CELL. 771 220 4070
+               	<p>
+             </div>
+           </div>
+           <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">				
+				<div id="map-canvas2" class="map-canvas"></div>
+            </div>
+          </div>
+          
+          <hr />
+
+           <div class="row">
+             <div class="col-lg-12 col-md-12 col-sm-12">
+             	<h3>PACHUCA CENTRO</h3>
+               	<p>			     
+				 	AV. MADERO 501-A ESQ. RIO DE LAS AVENIDAS COL. CENTRO PACHUCA HIDALGO TEL.(01 771) 294 2479 ID 72*13*81834 CELL. 771 220 4070
+               	<p>
              </div>
            </div>
           
           <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m22!1m12!1m3!1d3746.3666707040666!2d-98.73426112806399!3d20.118744813893958!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m7!1i0!3e6!4m3!3m2!1d20.1190622!2d-98.73459369999999!4m0!5e0!3m2!1ses!2smx!4v1403493295253"  frameborder="0" style="border:0"></iframe> -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">				
 				<div id="map-canvas" class="map-canvas"></div>
             </div>
           </div>

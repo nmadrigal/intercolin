@@ -102,7 +102,7 @@
                                  </ul>
 			</p>
           </div>
-          <h5>Ultima actualizacion: Jun/2015
+          <h5>Ultima actualizacion: Enero/2017
         </section>
     </footer>	
  

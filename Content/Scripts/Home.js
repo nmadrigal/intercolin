@@ -10,8 +10,7 @@ var map;
     //
     Home.Index = function () {
         function init() {        
-            initControls();
-            initEvents();
+            initControls();            
         }
         function initControls() {            
             $('.carousel').carousel();
@@ -23,9 +22,10 @@ var map;
 			var mapOptions = {
 				zoom: 19,
 				center: new google.maps.LatLng(20.119218, -98.734287),
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scrollwheel: false,
 			};
-			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);						
+			map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 			var pachuca = new google.maps.LatLng(20.118930, -98.734248); //20.118930, -98.734248
 			var logo = new google.maps.MarkerImage(
 				"http://intercolin.com/Content/Images/icn-logo-intercolin.png",
@@ -50,11 +50,46 @@ var map;
 				info.open(map, marker);
 			});
 			
+
+			//Another office location
+			//var location2 = 20.120908, -98.771993; 
+			//TODO: this function will be a generic for any map instance
+			CreateMap();
         }
 
-        function initEvents() {
+        function CreateMap() {
+        	var mapcanvas;
+        	var markerLocation = new google.maps.LatLng(20.120908, -98.771993);
+			var mapOptions = {
+				zoom: 20,
+				center: new google.maps.LatLng(20.121179, -98.771974),
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scrollwheel: false,
+			};
 
+			mapcanvas = new google.maps.Map(document.getElementById('map-canvas2'), mapOptions);
+			var logo = new google.maps.MarkerImage(
+				"http://intercolin.com/Content/Images/icn-logo-intercolin.png",
+				new google.maps.Size(50,40)				
+			);
+			
+			var marker = new google.maps.Marker({
+				position: markerLocation,
+				map: mapcanvas,
+				title: "Intercolin Parque de Poblamiento",
+				info: "<div class='info-window'><figure><img src='http://intercolin.com/Content/Images/intercolinParquePoblamiento.jpg' alt='Intercolin parque del poblammiento' /><figcaption>Parque de Poblamiento</figcaption></figure><p><label>Teléfono:</label><label>2942479</label></p><p><label>Horario:</label><label>Lun-Vie - 8am a 8pm</label></p><p>Calle Ferrocarril Hidalgo 201, Parque de Poblamiento 1ra sección, Pachuca, Hidalgo, Mexico</p></div>",
+				icon: logo
+			});
 
+			var info = new google.maps.InfoWindow({
+				content: marker['info']
+			});
+			
+			info.open(map,marker);
+			
+			google.maps.event.addListener(marker, "click", function(e){
+				info.open(map, marker);
+			});
         }
 		 
 		
